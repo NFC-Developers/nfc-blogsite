@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  nextjs:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_USE_EMULATOR=true
+    volumes:
+      - .:/app
+    command: npm run dev
