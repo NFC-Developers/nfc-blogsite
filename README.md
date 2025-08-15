@@ -26,6 +26,13 @@ We do Code Reviews! So please create your own branch every time there is a ticke
 
 
 
+Errors we might encounter(Add if you encountered some):
+
+# Error: Could not start {app} Emulator, port taken.
+  Fix - can be two ways kill port or redirect to another port or possible that the emulator is still running as there will be a cmd still open
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
