@@ -22,7 +22,7 @@ then it will show up in your docker nfc-blogspot running!
 ```
 
 
-
+We do Code Reviews! So please create your own branch every time there is a ticket! Then PR when ready. (Will be adding file integrity checkers soon) 
 
 
 
