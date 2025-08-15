@@ -10,7 +10,7 @@ Before we begin please follow this steps:
 ```bash
 
 
-Clone the repo -> cd nfc-blogsite -> npm install -> npm install -g firebase-tools(just incase it wasn't installed) -> create a file on root named .env.local and input details from firebase console (Send me your email to get api keys) -> firebase login  -> firebase emulators:start
+Clone the repo -> cd nfc-blogsite -> npm install -> npm install -g firebase-tools(just incase it wasn`t installed) -> create a file on root named .env.local and input details from firebase console (Send me your email to get api keys) -> firebase login  -> firebase emulators:start
 
 
 
