@@ -2,6 +2,30 @@ Important Notes:
 🔒 Protected Workflow: All changes must go through Pull Requests to avoid conflicts and future backlogs! 
 Thank you. 
 
+Before we begin please follow this steps:
+
+
+
+
+```bash
+
+
+Clone the repo -> cd nfc-blogsite -> npm install -> npm install -g firebase-tools(just incase it wasn't installed) -> create a file on root named .env.local and input details from firebase console (Send me your email to get api keys) -> firebase login  -> firebase emulators:start
+
+
+
+If all is successfull (please make sure your docker desktop is open!)
+type docker-compose -up --build 
+
+then it will show up in your docker nfc-blogspot running!
+
+```
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
