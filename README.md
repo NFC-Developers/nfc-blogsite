@@ -8,17 +8,15 @@ Before we begin please follow this steps:
 EXTRA NOTE (You can skip the docker part for now! Trying to fix it. The rest is working fine ) can start coding
 
 
-## SETUP Instructions
+## SETUP Instructions Follow step by step (Send me your email first)
 ```bash
 Clone the repo -> cd nfc-blogsite -> npm install -> npm install -g firebase-tools(just incase it wasn`t installed) -> create a file on root named .env.local and input details from firebase console (Send me your email to get api keys) -> firebase login  -> firebase emulators:start --import=./emulator-data --export-on-exit
-
+```
 Once everything is complete and it shows this in your CLI
-<img width="592" height="240" alt="{52BB1840-66B4-4557-AD1F-FD6BCB1F481E}" src="https://github.com/user-attachments/assets/1af5dce0-0540-4a8f-8876-de7dc5ef8182" />
 
 then your good to go! Start you server with npm run dev and start coding!
 
-```
-
+<img width="592" height="240" alt="{52BB1840-66B4-4557-AD1F-FD6BCB1F481E}" src="https://github.com/user-attachments/assets/1af5dce0-0540-4a8f-8876-de7dc5ef8182" />
 
 
 We do Code Reviews! So please create your own branch every time there is a ticket! Then PR when ready. (Will be adding file integrity checkers soon) 
