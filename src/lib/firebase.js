@@ -26,7 +26,7 @@ export const storage = getStorage(app);
 
 // Connect emulators if enabled
 if (process.env.NEXT_PUBLIC_USE_EMULATOR === "true") {
-  const host = typeof window === "undefined" ? "firebase" : "localhost";
+  const host = "localhost";
   connectFirestoreEmulator(db, host, 9090);
   connectAuthEmulator(auth, `http://${host}:9099`);
   connectStorageEmulator(storage, host, 9199);
