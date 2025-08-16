@@ -2,10 +2,38 @@ version: "3.9"
 services:
   nextjs:
     build: .
+    container_name: nfc-blogsite-nextjs
     ports:
       - "3000:3000"
     environment:
       - NEXT_PUBLIC_USE_EMULATOR=true
+    depends_on:
+      - firebase
     volumes:
       - .:/app
-    command: npm run dev
+    stdin_open: true
+    tty: true
+    networks:
+      - nfc-network
+
+  firebase:
+    image: node:20-alpine
+    container_name: nfc-blogsite-firebase
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      sh -c "npm install -g firebase-tools &&
+             firebase emulators:start --only firestore,auth,storage --import=./emulator-data --export-on-exit"
+    ports:
+      - "9090:9090"
+      - "9199:9199"
+      - "9099:9099"
+    stdin_open: true
+    tty: true
+    networks:
+      - nfc-network
+
+networks:
+  nfc-network:
+    driver: bridge

@@ -2,7 +2,7 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
-// import { getStorage, connectStorageEmulator } from "firebase/storage";
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,10 +22,12 @@ const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
-// Emulator connection
+// Connect emulators if enabled
 if (process.env.NEXT_PUBLIC_USE_EMULATOR === "true") {
-  connectFirestoreEmulator(db, "firestore", 9090);
-  connectAuthEmulator(auth, "http://auth:9099");
-  connectStorageEmulator(storage, "host.docker.internal", 9199);
+  const host = typeof window === "undefined" ? "firebase" : "localhost";
+  connectFirestoreEmulator(db, host, 9090);
+  connectAuthEmulator(auth, `http://${host}:9099`);
+  connectStorageEmulator(storage, host, 9199);
 }

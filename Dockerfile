@@ -1,21 +1,20 @@
-# Use Node 20 LTS image
+# Base image
 FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
 
+# Copy package.json and lockfile
+COPY package*.json ./
+
 # Install dependencies
-COPY package.json package-lock.json* ./
 RUN npm install
 
-# Copy the rest of the app
+# Copy the app code
 COPY . .
 
-# Expose Next.js dev port
+# Expose port
 EXPOSE 3000
 
-# Use environment variables from .env.local
-ENV NODE_ENV=development
-
-# Start Next.js in dev mode
+# Start Next.js
 CMD ["npm", "run", "dev"]
