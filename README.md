@@ -7,16 +7,15 @@ Before we begin please follow this steps:
 
 EXTRA NOTE (You can skip the docker part for now! Trying to fix it. The rest is working fine ) can start coding
 
+
+## SETUP Instructions
 ```bash
 Clone the repo -> cd nfc-blogsite -> npm install -> npm install -g firebase-tools(just incase it wasn`t installed) -> create a file on root named .env.local and input details from firebase console (Send me your email to get api keys) -> firebase login  -> firebase emulators:start --import=./emulator-data --export-on-exit
 
+Once everything is complete and it shows this in your CLI
+<img width="592" height="240" alt="{52BB1840-66B4-4557-AD1F-FD6BCB1F481E}" src="https://github.com/user-attachments/assets/1af5dce0-0540-4a8f-8876-de7dc5ef8182" />
 
-
-
-If all is successfull (please make sure your docker desktop is open!)
-type docker-compose -up --build 
-
-then it will show up in your docker nfc-blogspot running!
+then your good to go! Start you server with npm run dev and start coding!
 
 ```
 
@@ -30,6 +29,18 @@ Errors we might encounter(Add if you encountered some):
 
 # Error: Could not start {app} Emulator, port taken.
   Fix - can be two ways kill port or redirect to another port or possible that the emulator is still running as there will be a cmd still open
+
+
+
+  ## We Use ShadCN Components please get your ui components here! 
+    -https://ui.shadcn.com/ 
+    -https://www.shadcn-form.com/playground (For Building if you want)
+  
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
