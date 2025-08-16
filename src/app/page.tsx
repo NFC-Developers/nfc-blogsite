@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
+import Navbar from "@/components/shared/NavigationBar"; 
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -50,48 +51,57 @@ export default function Home() {
   };
 
   return (
-    <div className="font-sans min-h-screen p-8 sm:p-20 flex flex-col gap-8">
-      <h1 className="text-2xl font-bold">Firestore Test Form</h1>
+    <div className="font-sans min-h-screen flex flex-col">
+      {/* Navbar at the top */}
+      <Navbar />
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4 max-w-md w-full"
-      >
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <textarea
-          placeholder="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      {/* Page content */}
+      <main className="flex-1 p-8 sm:p-20 flex flex-col gap-8">
+        <h1 className="text-2xl font-bold">Firestore Test Form</h1>
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4 max-w-md w-full"
         >
-          Add to Firestore
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="border p-2 rounded"
+          />
+          <textarea
+            placeholder="Content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="border p-2 rounded"
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Add to Firestore
+          </button>
+        </form>
+
+        <button
+          onClick={fetchPosts}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-max"
+        >
+          Fetch Posts
         </button>
-      </form>
 
-      <button
-        onClick={fetchPosts}
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-max"
-      >
-        Fetch Posts
-      </button>
-
-      <div className="flex flex-col gap-2">
-        {messages.map((msg, i) => (
-          <div key={i} className="bg-gray-100 p-2 rounded break-words text-red-500">
-            {msg}
-          </div>
-        ))}
-      </div>
+        <div className="flex flex-col gap-2">
+          {messages.map((msg, i) => (
+            <div
+              key={i}
+              className="bg-gray-100 p-2 rounded break-words text-red-500"
+            >
+              {msg}
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
