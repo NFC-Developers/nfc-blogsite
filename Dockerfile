@@ -1,5 +1,18 @@
 # Base image
-FROM node:20-alpine
+FROM node:20-bullseye
+
+# Install required build tools and fonts
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3 \
+    curl \
+    git \
+    fontconfig \
+    fonts-dejavu-core \
+    libc6-dev \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 
 # Set working directory
 WORKDIR /app
@@ -10,7 +23,7 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the app code
+# Copy app code
 COPY . .
 
 # Expose port

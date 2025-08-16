@@ -5,12 +5,11 @@ Thank you.
 Before we begin please follow this steps:
 
 
-
+EXTRA NOTE (You can skip the docker part for now! Trying to fix it. The rest is working fine ) can start coding
 
 ```bash
+Clone the repo -> cd nfc-blogsite -> npm install -> npm install -g firebase-tools(just incase it wasn`t installed) -> create a file on root named .env.local and input details from firebase console (Send me your email to get api keys) -> firebase login  -> firebase emulators:start --import=./emulator-data --export-on-exit
 
-
-Clone the repo -> cd nfc-blogsite -> npm install -> npm install -g firebase-tools(just incase it wasn`t installed) -> create a file on root named .env.local and input details from firebase console (Send me your email to get api keys) -> firebase login  -> firebase emulators:start
 
 
 
@@ -20,6 +19,7 @@ type docker-compose -up --build
 then it will show up in your docker nfc-blogspot running!
 
 ```
+
 
 
 We do Code Reviews! So please create your own branch every time there is a ticket! Then PR when ready. (Will be adding file integrity checkers soon) 
