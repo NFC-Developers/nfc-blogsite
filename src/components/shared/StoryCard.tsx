@@ -97,11 +97,12 @@ export function StoryCard(props: StoryCardProps) {
         <div className="rounded-sm bg-gray-100 w-full p-2 text-sm text-gray-800">
           {props.words} words • {props.views} views •
           <span 
-            className={"text-xl text-transparent ml-1 bg-clip-text"}
+            className={"text-xl text-transparent m-1 bg-clip-text"}
             style={{backgroundImage: `linear-gradient(90deg, orange ${starPercent}, gray ${starPercent})`}}
           >
             ★★★★★
           </span>
+          {props.stars} stars
         </div>
       </CardFooter>
     </Card>
