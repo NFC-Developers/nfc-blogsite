@@ -18,8 +18,7 @@ type StoryCardProps = {
   coverImg: string,
   words: number,
   views: number,
-  likes: number,
-  dislikes: number
+  stars: number
 }
 
 type Tag = {
@@ -92,7 +91,7 @@ export function StoryCard(props: StoryCardProps) {
       </CardContent>
       <CardFooter>
         <div className="rounded-sm bg-gray-100 w-full p-2 text-sm text-gray-800">
-          {props.words} words • {props.views} views • {props.likes} likes • {props.dislikes} dislikes
+          {props.words} words • {props.views} views • {props.stars} stars
         </div>
       </CardFooter>
     </Card>

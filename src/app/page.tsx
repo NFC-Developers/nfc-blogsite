@@ -120,8 +120,7 @@ export default function Home() {
         coverImg={""} 
         words={1234} 
         views={4321} 
-        likes={69} 
-        dislikes={21} />
+        stars={3.14} />
       </main>
     </div>
   );
