@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import Link from "next/link";
 
 type StoryCardProps = {
   storyID: number,
@@ -55,18 +56,33 @@ function getTagColor(tagType: string): string {
 }
 
 function TagDisp(props: Tag) {
-  return <a href={"/tag/"+encodeURIComponent(props.name)} className={`inline-block rounded-sm mr-1 text-white px-2 hover:underline ${getTagColor(props.type)}`}>{props.name}</a>
+  const tagColor = getTagColor(props.type);
+  return <Link 
+  href={"/tag/"+encodeURIComponent(props.name)} 
+  className={`inline-block rounded-sm mr-1 text-white px-2 hover:underline ${tagColor}`}>
+    {props.name}
+  </Link>;
 }
 
 export function StoryCard(props: StoryCardProps) {
+  const ratingColor = getRatingColor(props.rating);
   const tagList = props.tags.map((tag,index)=><TagDisp key={index} name={tag.name} type={tag.type}/>);
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle>
-          <div className={`inline-block rounded-sm w-6 h-6 text-center leading-6 text-white ${getRatingColor(props.rating)}`}>{props.rating}</div>
-          <a href={"/story/"+props.storyID} className="ml-3 font-bold text-lg hover:underline">{props.title}</a>
-          <span className="ml-2 text-md text-gray-500">by <a href={"/user/"+props.authorID} className="hover:underline">{props.authorName}</a></span>
+          <div className={`inline-block rounded-sm w-6 h-6 text-center leading-6 text-white ${ratingColor}`}>
+            {props.rating}
+          </div>
+          <Link href={"/story/"+props.storyID} className="ml-3 font-bold text-lg hover:underline">
+            {props.title}
+          </Link>
+          <span className="ml-2 text-md text-gray-500">
+            by
+            <Link href={"/user/"+props.authorID} className="hover:underline ml-1">
+              {props.authorName}
+            </Link>
+          </span>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -80,6 +96,6 @@ export function StoryCard(props: StoryCardProps) {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
