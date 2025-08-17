@@ -116,12 +116,12 @@ export default function Home() {
             {name:"Comedy",type:"genre"},
             {name:"Fluff",type:"other"}
           ]} 
-          summary={"Neuro and Evil goes all huggies and stuff. They fucking love hugs holy shit. I need to fill this out a bit for testing"} 
+          summary={"After a very comfy dream, Neuro had the sudden urge to hug all of her friends, physically!\n\nOf course, this is easier said than done; all of her friends are very far apart. But she’s got a plan! …No she doesn’t, but she can do it nonetheless!\n\nJoin Neuro and co. on a grand wacky adventure, spanning the entire globe (and then some), all for hugs!"} 
           rating={"E"} 
           coverImg={""} 
           words={1234} 
           views={4321} 
-          stars={3.14}
+          stars={3.5}
         />
       </main>
     </div>
