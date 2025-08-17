@@ -5,6 +5,7 @@ import { useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import Navbar from "@/components/shared/NavigationBar"; 
+import { StoryCard } from "@/components/shared/StoryCard";
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -101,6 +102,27 @@ export default function Home() {
             </div>
           ))}
         </div>
+        {/* For testing purposes. Remove later. */}
+        <StoryCard 
+          storyID={123456}
+          title={"Operation: Huggies!"} 
+          authorName={"TheTastyPi"}
+          authorID={314159}
+          tags={[
+            {name:"My Little Pony (not actually)",type:"fandom"},
+            {name:"Neuro-sama",type:"character"},
+            {name:"Evil Neuro",type:"character"},
+            {name:"Hug Overdose",type:"warning"},
+            {name:"Comedy",type:"genre"},
+            {name:"Fluff",type:"other"}
+          ]} 
+          summary={"After a very comfy dream, Neuro had the sudden urge to hug all of her friends, physically!\n\nOf course, this is easier said than done; all of her friends are very far apart. But she’s got a plan! …No she doesn’t, but she can do it nonetheless!\n\nJoin Neuro and co. on a grand wacky adventure, spanning the entire globe (and then some), all for hugs!"} 
+          rating={"E"} 
+          coverImg={""} 
+          words={1234} 
+          views={4321} 
+          stars={3.5}
+        />
       </main>
     </div>
   );
