@@ -30,7 +30,7 @@ export default function Navbar() {
 
           {/* Search Bar */}
           <div className="flex flex-1 min-w-[150px] max-w-full items-center rounded bg-gray-800 overflow-hidden">
-            <select className="hidden sm:block bg-gray-800 py-2 px-2 text-gray-300 outline-none border-r border-gray-700">
+            <select className="bg-gray-800 py-2 px-2 text-gray-300 outline-none border-r border-gray-700">
               <option>Stories</option>
               <option>Users</option>
               <option>Groups</option>
