@@ -13,8 +13,12 @@ export default function LoginPage() {
     try {
       const userCred = await signInWithEmailAndPassword(auth, email, password);
       setMessage(`Logged in as ${userCred.user.uid}`);
-    } catch (err: any) {
-      setMessage(`Login failed: ${err.message}`);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setMessage(`Login failed: ${err.message}`);
+      } else {
+        setMessage("Login failed: Unknown error");
+      }
     }
   };
 
@@ -22,8 +26,12 @@ export default function LoginPage() {
     try {
       const userCred = await createUserWithEmailAndPassword(auth, email, password);
       setMessage(`User created with UID: ${userCred.user.uid}`);
-    } catch (err: any) {
-      setMessage(`Signup failed: ${err.message}`);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setMessage(`Signup failed: ${err.message}`);
+      } else {
+        setMessage("Signup failed: Unknown error");
+      }
     }
   };
 
@@ -45,10 +53,16 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           className="border p-2 rounded"
         />
-        <button onClick={handleLogin} className="bg-blue-600 text-white px-4 py-2 rounded">
+        <button
+          onClick={handleLogin}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
           Login
         </button>
-        <button onClick={handleSignup} className="bg-green-600 text-white px-4 py-2 rounded">
+        <button
+          onClick={handleSignup}
+          className="bg-green-600 text-white px-4 py-2 rounded"
+        >
           Signup
         </button>
         {message && <div className="text-sm text-gray-600">{message}</div>}

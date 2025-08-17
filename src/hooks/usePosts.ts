@@ -2,17 +2,28 @@ import { useState } from "react";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+interface Post {
+  id: string | number;
+  title: string;
+  authorId: string;
+  [key: string]: unknown; 
+}
+
 export function usePosts() {
   const [messages, setMessages] = useState<string[]>([]);
 
   const fetchPosts = async () => {
     try {
       const res = await fetch(`${BACKEND_URL}/posts`);
-      const data = await res.json();
-      setMessages(data.map((p: any) => `${p.id}: ${p.title} by ${p.authorId}`));
-    } catch (err) {
+      const data: Post[] = await res.json(); // type the fetched array
+      setMessages(data.map((p) => `${p.id}: ${p.title} by ${p.authorId}`));
+    } catch (err: unknown) {
       console.error(err);
-      setMessages([`Error fetching: ${err}`]);
+      if (err instanceof Error) {
+        setMessages([`Error fetching: ${err.message}`]);
+      } else {
+        setMessages([`Error fetching: Unknown error`]);
+      }
     }
   };
 
@@ -20,7 +31,7 @@ export function usePosts() {
     title: string,
     content: string,
     authorId: string,
-    email: string,
+    email: string
   ) => {
     try {
       const res = await fetch(`${BACKEND_URL}/posts`, {
@@ -28,11 +39,15 @@ export function usePosts() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, content, authorId, email }),
       });
-      const post = await res.json();
+      const post: Post = await res.json();
       setMessages((prev) => [...prev, `Post created: ${post.id}`]);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
-      setMessages((prev) => [...prev, `Error: ${err}`]);
+      if (err instanceof Error) {
+        setMessages((prev) => [...prev, `Error: ${err.message}`]);
+      } else {
+        setMessages((prev) => [...prev, `Error: Unknown error`]);
+      }
     }
   };
 
