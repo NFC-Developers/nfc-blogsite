@@ -20,7 +20,7 @@ export function usePosts() {
     title: string,
     content: string,
     authorId: string,
-    email: string // ← add email
+    email: string,
   ) => {
     try {
       const res = await fetch(`${BACKEND_URL}/posts`, {

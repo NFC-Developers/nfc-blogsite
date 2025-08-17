@@ -3,49 +3,54 @@
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
+import BrowseDialog from "./BrowseDialog";
 
 export default function Navbar() {
   return (
-    <header className="w-full border-b bg-purple-600 shadow-sm text-white">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-        {/* Left section: Logo + Navigation */}
-        <div className="flex items-center space-x-6">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <img src="/logo.png" alt="Logo" className="h-8 w-8" />
-            <span className="font-bold text-lg">MyApp</span>
-          </Link>
+    <header className="w-full">
+      <div className="w-full border-b bg-gray-900 text-gray-200">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-2 sm:px-6">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="flex items-center">
+              <img src="/logo.png" alt="Logo" className="h-8 w-8" />
+            </Link>
+            <BrowseDialog />
+          </div>
 
-          {/* Navigation links */}
-          <nav className="flex items-center space-x-3 text-sm font-medium">
-            <Link href="/" className="hover:underline">
-              Home
+          <div className="flex w-full items-center rounded bg-gray-800 sm:w-auto">
+            <select className="hidden bg-gray-800 px-2 text-gray-300 outline-none sm:block border-r border-gray-700">
+              <option>Stories</option>
+              <option>Users</option>
+              <option>Groups</option>
+            </select>
+            <Input
+              type="text"
+              placeholder="Search..."
+              className="w-full border-0 bg-gray-800 text-gray-200 placeholder-gray-400 focus-visible:ring-0 sm:w-56"
+            />
+            <button className="px-3 text-gray-300 hover:text-white">
+              <Search size={18} />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Link href="/login" className="hover:underline">
+              Login
             </Link>
-            <span>|</span>
-            <Link href="/settings" className="hover:underline">
-              Settings
-            </Link>
-            <span>|</span>
-            <Link href="/about" className="hover:underline">
-              About Us
-            </Link>
-          </nav>
+            <Button asChild className="bg-blue-600 text-white hover:bg-blue-700">
+              <Link href="/signup">Sign Up</Link>
+            </Button>
+          </div>
         </div>
+      </div>
 
-        {/* Search Bar */}
-        <div className="flex-1 max-w-md mx-6">
-          <Input
-            type="text"
-            placeholder="Search..."
-            className="w-full text-black"
-          />
-        </div>
-
-        {/* Login Button */}
-        <div>
-          <Button asChild className="bg-white text-purple-600 hover:bg-gray-100">
-            <Link href="/login">Login</Link>
-          </Button>
+      <div className="w-full bg-blue-800 text-gray-200">
+        <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-2 text-sm sm:px-6">
+          <Link href="/groups" className="hover:underline">Groups</Link>
+          <Link href="/settings" className="hover:underline">Settings</Link>
+          <Link href="/help" className="hover:underline">Help</Link>
+          <Link href="/chat" className="hover:underline">Chat</Link>
         </div>
       </div>
     </header>
