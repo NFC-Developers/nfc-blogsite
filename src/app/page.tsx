@@ -102,25 +102,27 @@ export default function Home() {
             </div>
           ))}
         </div>
+        {/* For testing purposes. Remove later. */}
         <StoryCard 
-        storyID={123456}
-        title={"Operation: Huggies!"} 
-        authorName={"TheTastyPi"}
-        authorID={314159}
-        tags={[
-          {name:"My Little Pony (not actually)",type:"fandom"},
-          {name:"Neuro-sama",type:"character"},
-          {name:"Evil Neuro",type:"character"},
-          {name:"Hug Overdose",type:"warning"},
-          {name:"Comedy",type:"genre"},
-          {name:"Fluff",type:"other"}
-        ]} 
-        summary={"Neuro and Evil goes all huggies and stuff. They fucking love hugs holy shit. I need to fill this out a bit for testing"} 
-        rating={"E"} 
-        coverImg={""} 
-        words={1234} 
-        views={4321} 
-        stars={3.14} />
+          storyID={123456}
+          title={"Operation: Huggies!"} 
+          authorName={"TheTastyPi"}
+          authorID={314159}
+          tags={[
+            {name:"My Little Pony (not actually)",type:"fandom"},
+            {name:"Neuro-sama",type:"character"},
+            {name:"Evil Neuro",type:"character"},
+            {name:"Hug Overdose",type:"warning"},
+            {name:"Comedy",type:"genre"},
+            {name:"Fluff",type:"other"}
+          ]} 
+          summary={"Neuro and Evil goes all huggies and stuff. They fucking love hugs holy shit. I need to fill this out a bit for testing"} 
+          rating={"E"} 
+          coverImg={""} 
+          words={1234} 
+          views={4321} 
+          stars={3.14}
+        />
       </main>
     </div>
   );
