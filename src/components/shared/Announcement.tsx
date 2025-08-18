@@ -5,6 +5,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { StoryCard } from "./StoryCard";
+import { StoryCardProps } from "@/types/story";
 
 export function Announcement({ stories }: { stories: StoryCardProps[] }) {
   const triggers = stories.map(story =>
@@ -16,7 +17,7 @@ export function Announcement({ stories }: { stories: StoryCardProps[] }) {
   );
   const contents = stories.map(story =>
     <TabsContent key={story.storyID} value={story.storyID.toString()}>
-      <StoryCard {...story}/>
+      <StoryCard large={true} {...story}/>
     </TabsContent>
   );
   return (

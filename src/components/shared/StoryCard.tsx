@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 import { Star, StarHalf, Star as StarEmpty } from "lucide-react";
 import { getRatingColor, getTagColor } from "@/hooks/useStoryCard";
+import { StoryCardProps, Tag } from "@/types/story";
 
 function TagDisp(props: Tag) {
   const tagColor = getTagColor(props.type);
@@ -37,21 +38,30 @@ function StarRating({ stars }: { stars: number }) {
   );
 }
 
-export function StoryCard(props: StoryCardProps) {
+export function StoryCard(props: StoryCardProps & {large: boolean}) {
+  const isLarge = props.large ?? true;
   const ratingColor = getRatingColor(props.rating);
   const tagList = props.tags.map((tag,index)=><TagDisp key={index} name={tag.name} type={tag.type}/>);
   const summary = props.summary.split("\n").map((str,index)=><span key={index}>{str}<br/></span>);
   return (
-    <Card className="w-full">
+    <Card className={`w-full gap-1 ${isLarge ? "" : "text-sm"}`}>
       <CardHeader>
         <CardTitle>
-          <div className={`inline-block rounded-sm w-8 h-8 text-xl text-center leading-8 text-white ${ratingColor}`}>
+          <div 
+            className={
+              `inline-block rounded-sm text-center text-white ${ratingColor} 
+              ${isLarge ? "w-8 h-8 text-xl leading-8" : "w-6 h-6 text-base leading-6"}`
+            }
+          >
             {props.rating}
           </div>
-          <Link href={"/story/"+props.storyID} className="ml-3 font-bold text-xl hover:underline">
+          <Link
+            href={"/story/"+props.storyID} 
+            className={`hover:underline ${isLarge ? "ml-3 text-xl" : "ml-2 text-lg"}`}
+          >
             {props.title}
           </Link>
-          <span className="ml-2 text-lg text-gray-500">
+          <span className={`text-gray-500 ${isLarge ? "ml-2 text-lg" : "ml-1 text-base"}`}>
             by
             <Link href={"/user/"+props.authorID} className="hover:underline ml-1">
               {props.authorName}
