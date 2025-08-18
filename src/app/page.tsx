@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import Navbar from "@/components/shared/NavigationBar"; 
+
 import { Announcement } from "@/components/shared/Announcement";
 import { getLatestUpdates, getNewStories, getTopStories } from "@/hooks/useHome";
 import { StoryList } from "@/components/shared/StoryList";

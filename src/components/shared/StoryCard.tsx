@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Link from "next/link";
-import { Star, StarHalf, Star as StarEmpty } from "lucide-react";
+import { Star, StarHalf} from "lucide-react";
 import { getRatingColor, getTagColor } from "@/hooks/useStoryCard";
 import { StoryCardProps, Tag } from "@/types/story";
 
