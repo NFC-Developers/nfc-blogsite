@@ -3,7 +3,7 @@ import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { usePosts } from "@/hooks/usePosts";
-import PostForm from "@/components/member/add/saveStoryForm";
+import PostForm from "@/components/profile/add/saveStoryForm";
 import Navbar from "@/components/shared/NavigationBar";
 
 export default function AddPostPage() {
