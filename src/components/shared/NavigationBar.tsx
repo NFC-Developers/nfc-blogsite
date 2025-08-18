@@ -63,13 +63,22 @@ export default function Navbar() {
         <div className="mx-auto flex items-center justify-between px-4 py-2 max-w-7xl flex-nowrap">
           {/* Left links */}
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <Link href="/groups" className="flex items-center gap-1 text-[12px] sm:text-sm">
+            <Link
+              href="/groups"
+              className="flex items-center gap-1 text-[12px] sm:text-sm"
+            >
               <Users size={14} /> Groups
             </Link>
-            <Link href="/settings" className="flex items-center gap-1 text-[12px] sm:text-sm">
+            <Link
+              href="/settings"
+              className="flex items-center gap-1 text-[12px] sm:text-sm"
+            >
               <Settings size={14} /> Settings
             </Link>
-            <Link href="/help" className="flex items-center gap-1 text-[12px] sm:text-sm">
+            <Link
+              href="/help"
+              className="flex items-center gap-1 text-[12px] sm:text-sm"
+            >
               <HelpCircle size={14} /> Help
             </Link>
           </div>
@@ -92,13 +101,22 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem asChild>
-                    <Link href="/profile">My Profile</Link>
+                    <Link
+                      href={`/${user.displayName || user.email}/my-profile`}
+                    >
+                      My Profile
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/settings">Settings</Link>
+                    <Link href={`/${user.displayName || user.email}/settings`}>
+                      Settings
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-red-600"
+                  >
                     <LogOut className="mr-2 h-4 w-4" /> Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
