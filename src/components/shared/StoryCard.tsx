@@ -14,7 +14,7 @@ function TagDisp(props: Tag) {
   const tagColor = getTagColor(props.type);
   return <Link 
   href={"/tag/"+encodeURIComponent(props.name)} 
-  className={`inline-block rounded-sm mr-1 text-white px-2 hover:underline ${tagColor}`}>
+  className={`inline-block rounded-sm mr-1 mb-1 text-white px-2 hover:underline ${tagColor}`}>
     {props.name}
   </Link>;
 }
