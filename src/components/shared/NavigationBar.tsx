@@ -8,13 +8,24 @@ import {
   Users,
   Settings,
   HelpCircle,
-  MessageCircle,
   UserPlus,
   LogIn,
+  User,
+  LogOut,
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import BrowseDialog from "./BrowseDialog";
+import { useAuth } from "@/hooks/useAuthForm";
 
 export default function Navbar() {
+  const { user, loading, handleLogout } = useAuth();
+
   return (
     <header className="w-full">
       {/* Top Navbar */}
@@ -48,51 +59,75 @@ export default function Navbar() {
       </div>
 
       {/* Bottom Menu */}
-<div className="w-full bg-blue-800 text-gray-200">
-  <div className="mx-auto flex items-center justify-between px-4 py-2 max-w-7xl flex-nowrap">
+      <div className="w-full bg-blue-800 text-gray-200">
+        <div className="mx-auto flex items-center justify-between px-4 py-2 max-w-7xl flex-nowrap">
+          {/* Left links */}
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <Link href="/groups" className="flex items-center gap-1 text-[12px] sm:text-sm">
+              <Users size={14} /> Groups
+            </Link>
+            <Link href="/settings" className="flex items-center gap-1 text-[12px] sm:text-sm">
+              <Settings size={14} /> Settings
+            </Link>
+            <Link href="/help" className="flex items-center gap-1 text-[12px] sm:text-sm">
+              <HelpCircle size={14} /> Help
+            </Link>
+          </div>
 
-    {/* Left links */}
-    <div className="flex items-center gap-2 flex-1 min-w-0">
-      <Link href="/groups" className="flex items-center gap-1 text-[12px] sm:text-sm">
-        <Users size={14} /> Groups
-      </Link>
-      <Link href="/settings" className="flex items-center gap-1 text-[12px] sm:text-sm">
-        <Settings size={14} /> Settings
-      </Link>
-      <Link href="/help" className="flex items-center gap-1 text-[12px] sm:text-sm">
-        <HelpCircle size={14} /> Help
-      </Link>
-      {/* <Link href="/chat" className="flex items-center gap-1 text-[12px] sm:text-sm">
-        <MessageCircle size={14} /> Chat
-      </Link> */}
-    </div>
+          {/* Right buttons */}
+          <div className="flex items-center gap-1 flex-shrink-0 ml-2">
+            {loading ? (
+              // Skeleton while Firebase is checking
+              <div className="w-24 h-8 bg-gray-300 animate-pulse rounded-full" />
+            ) : user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-2 border-gray-600 text-gray-800 bg-white hover:bg-gray-100"
+                  >
+                    <User size={16} />
+                    {user.displayName || user.email}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile">My Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings">Settings</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                    <LogOut className="mr-2 h-4 w-4" /> Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-gray-600 text-gray-800 hover:bg-blue-50 px-1.5 py-0.5 text-[11px] sm:px-3 sm:py-1.5 sm:text-sm"
+                >
+                  <Link href="/login" className="flex items-center gap-1">
+                    <LogIn size={14} /> Login
+                  </Link>
+                </Button>
 
-    {/* Right buttons */}
-    <div className="flex items-center gap-1 flex-shrink-0 ml-2">
-      <Button
-        asChild
-        variant="outline"
-        className="border-gray-600 text-gray-800 hover:bg-blue-50 px-1.5 py-0.5 text-[11px] sm:px-3 sm:py-1.5 sm:text-sm"
-      >
-        <Link href="/login" className="flex items-center gap-1">
-          <LogIn size={14} /> Login
-        </Link>
-      </Button>
-
-      <Button
-        asChild
-        className="bg-green-600 text-white hover:bg-blue-700 px-1.5 py-0.5 text-[11px] sm:px-3 sm:py-1.5 sm:text-sm"
-      >
-        <Link href="/register" className="flex items-center gap-1">
-          <UserPlus size={14} /> Register
-        </Link>
-      </Button>
-    </div>
-
-  </div>
-</div>
-
-
+                <Button
+                  asChild
+                  className="bg-green-600 text-white hover:bg-blue-700 px-1.5 py-0.5 text-[11px] sm:px-3 sm:py-1.5 sm:text-sm"
+                >
+                  <Link href="/register" className="flex items-center gap-1">
+                    <UserPlus size={14} /> Register
+                  </Link>
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
