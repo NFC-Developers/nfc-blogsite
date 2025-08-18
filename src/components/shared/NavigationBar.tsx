@@ -21,10 +21,10 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import BrowseDialog from "./BrowseDialog";
-import { useAuth } from "@/hooks/useAuthForm";
+import { useAuthForm } from "@/hooks/useAuthForm";
 
 export default function Navbar() {
-  const { user, loading, handleLogout } = useAuth();
+  const { user, loading, handleLogout } = useAuthForm();
 
   return (
     <header className="w-full">

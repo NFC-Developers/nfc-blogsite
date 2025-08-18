@@ -10,25 +10,28 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
+  updateProfile,
   User,
 } from "firebase/auth";
 import { z } from "zod";
+import type { AuthErrors, UseAuthFormReturn, AuthMode } from "@/types/auth";
 
 const schema = z.object({
   email: z.string().email("Invalid email format"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
+  username: z.string().min(3, "Username must be at least 3 characters long"),
 });
 
-export function useAuth(mode?: "login" | "register") {
+export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [username, setUsername] = useState("");
+  const [errors, setErrors] = useState<AuthErrors>({});
   const [message, setMessage] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // 🔹 Track current user
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -37,19 +40,21 @@ export function useAuth(mode?: "login" | "register") {
     return () => unsub();
   }, []);
 
-  // 🔹 Login / Register handler
   const handleSubmit = async () => {
     if (!mode) return;
-    const result = schema.safeParse({ email, password });
+    const result = schema.safeParse({ email, password, username });
+
     if (!result.success) {
-      const fieldErrors: { email?: string; password?: string } = {};
+      const fieldErrors: AuthErrors = {};
       result.error.issues.forEach((err) => {
         if (err.path[0] === "email") fieldErrors.email = err.message;
         if (err.path[0] === "password") fieldErrors.password = err.message;
+        if (err.path[0] === "username") fieldErrors.username = err.message;
       });
       setErrors(fieldErrors);
       return;
     }
+
     setErrors({});
     try {
       if (mode === "login") {
@@ -58,7 +63,10 @@ export function useAuth(mode?: "login" | "register") {
         router.push("/home");
       } else {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
-        setMessage(`User created: ${userCred.user.email}`);
+        if (username) {
+          await updateProfile(userCred.user, { displayName: username });
+        }
+        setMessage(`User created: ${username || userCred.user.email}`);
         router.push("/home");
       }
     } catch (err: unknown) {
@@ -66,7 +74,6 @@ export function useAuth(mode?: "login" | "register") {
     }
   };
 
-  // 🔹 Google login
   const handleGoogleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
@@ -78,22 +85,15 @@ export function useAuth(mode?: "login" | "register") {
     }
   };
 
-  // 🔹 Logout
   const handleLogout = async () => {
     await signOut(auth);
     setUser(null);
     router.push("/home");
   };
 
-  // 🔹 Error handling helper
   const handleFirebaseError = (err: unknown) => {
-    const fieldErrors: { email?: string; password?: string } = {};
-    if (
-      typeof err === "object" &&
-      err !== null &&
-      "code" in err &&
-      typeof (err as { code: unknown }).code === "string"
-    ) {
+    const fieldErrors: AuthErrors = {};
+    if (typeof err === "object" && err !== null && "code" in err) {
       const code = (err as { code: string }).code;
       if (code === "auth/user-not-found") fieldErrors.email = "Account does not exist";
       else if (code === "auth/wrong-password") fieldErrors.password = "Incorrect password";
@@ -105,24 +105,22 @@ export function useAuth(mode?: "login" | "register") {
     setErrors(fieldErrors);
   };
 
-  // 🔹 Safe message getter
   const getErrorMessage = (err: unknown, fallback: string) =>
     err && typeof err === "object" && "message" in err && typeof (err as { message: unknown }).message === "string"
       ? (err as { message: string }).message
       : fallback;
 
   return {
-    // state
     email,
     setEmail,
     password,
     setPassword,
+    username,
+    setUsername,
     errors,
     message,
     user,
     loading,
-
-    // actions
     handleSubmit,
     handleGoogleLogin,
     handleLogout,

@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 import { useAuthForm } from "@/hooks/useAuthForm";
+import type { AuthFormProps } from "@/types/auth";
 
-type AuthFormProps = {
-  mode: "login" | "register";
-};
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const {
@@ -13,6 +11,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
     setEmail,
     password,
     setPassword,
+    username,
+    setUsername,
     errors,
     message,
     handleSubmit,
@@ -40,7 +40,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
             onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-lg border border-gray-300 px-4 py-3 bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
           />
-          {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+          )}
         </div>
 
         {/* Password */}
@@ -52,8 +54,26 @@ export default function AuthForm({ mode }: AuthFormProps) {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full rounded-lg border border-gray-300 px-4 py-3 bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
           />
-          {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password}</p>}
+          {errors.password && (
+            <p className="text-red-600 text-sm mt-1">{errors.password}</p>
+          )}
         </div>
+
+        {/* Username (only for register) */}
+        {mode === "register" && (
+          <div className="mt-4">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
+            {errors.username && (
+              <p className="text-red-600 text-sm mt-1">{errors.username}</p>
+            )}
+          </div>
+        )}
 
         {/* Submit */}
         <button
@@ -84,7 +104,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
             alt="Google"
             className="w-5 h-5"
           />
-          <span className="text-gray-700 font-medium">Continue with Google</span>
+          <span className="text-gray-700 font-medium">
+            Continue with Google
+          </span>
         </button>
 
         {/* Switch */}
@@ -92,7 +114,10 @@ export default function AuthForm({ mode }: AuthFormProps) {
           {mode === "login" ? (
             <>
               Don’t have an account?{" "}
-              <Link href="/register" className="text-indigo-600 hover:underline">
+              <Link
+                href="/register"
+                className="text-indigo-600 hover:underline"
+              >
                 Register
               </Link>
             </>
@@ -107,7 +132,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
         </p>
 
         {message && (
-          <div className="mt-3 text-sm text-center text-gray-700">{message}</div>
+          <div className="mt-3 text-sm text-center text-gray-700">
+            {message}
+          </div>
         )}
       </div>
     </div>
