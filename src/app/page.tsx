@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import Navbar from "@/components/shared/NavigationBar"; 
-import { StoryCard } from "@/components/shared/StoryCard";
+
 import { Announcement } from "@/components/shared/Announcement";
 
 export default function Home() {
