@@ -6,6 +6,7 @@ import Navbar from "@/components/shared/NavigationBar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useAuthForm } from "@/hooks/useAuthForm";
+import UserStoriesTable from "@/components/profile/userStoriesTable"; 
 
 export default function MemberPage() {
   const { user, loading } = useAuthForm();
@@ -61,6 +62,8 @@ export default function MemberPage() {
             </Button>
           </div>
         </Profile>
+
+        <UserStoriesTable userId={user.uid} />
       </div>
     </>
   );

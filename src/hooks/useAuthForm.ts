@@ -12,6 +12,7 @@ import {
   signOut,
   updateProfile,
   User,
+  getIdToken,
 } from "firebase/auth";
 import { z } from "zod";
 import type { AuthErrors, UseAuthFormReturn, AuthMode } from "@/types/auth";
@@ -31,7 +32,9 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+  // Listen to Firebase auth state
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -40,10 +43,31 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
     return () => unsub();
   }, []);
 
+  // Pre-register user in backend
+  const preRegisterUser = async (firebaseUser: User) => {
+    try {
+      const idToken = await getIdToken(firebaseUser, true);
+      await fetch(`${BACKEND_URL}/users/sync`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({
+          name: firebaseUser.displayName || username || "Anonymous",
+          description: "",
+          birthdate: null,
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to pre-register user:", err);
+    }
+  };
+
   const handleSubmit = async () => {
     if (!mode) return;
-    const result = schema.safeParse({ email, password, username });
 
+    const result = schema.safeParse({ email, password, username });
     if (!result.success) {
       const fieldErrors: AuthErrors = {};
       result.error.issues.forEach((err) => {
@@ -58,23 +82,19 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
     setErrors({});
     try {
       if (mode === "login") {
-        const userCred = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const userCred = await signInWithEmailAndPassword(auth, email, password);
         setMessage(`Logged in as ${userCred.user.email}`);
+
+        await preRegisterUser(userCred.user); // ✅ pre-register
         router.push("/home");
       } else {
-        const userCred = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const userCred = await createUserWithEmailAndPassword(auth, email, password);
         if (username) {
           await updateProfile(userCred.user, { displayName: username });
         }
         setMessage(`User created: ${username || userCred.user.email}`);
+
+        await preRegisterUser(userCred.user); // ✅ pre-register
         router.push("/home");
       }
     } catch (err: unknown) {
@@ -86,9 +106,9 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
     try {
       const provider = new GoogleAuthProvider();
       const userCred = await signInWithPopup(auth, provider);
-      setMessage(
-        `Logged in as ${userCred.user.displayName || userCred.user.email}`
-      );
+      setMessage(`Logged in as ${userCred.user.displayName || userCred.user.email}`);
+
+      await preRegisterUser(userCred.user); // ✅ pre-register
       router.push("/home");
     } catch (err: unknown) {
       if (process.env.NODE_ENV === "development") {
@@ -121,10 +141,7 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
   };
 
   const getErrorMessage = (err: unknown, fallback: string) =>
-    err &&
-    typeof err === "object" &&
-    "message" in err &&
-    typeof (err as { message: unknown }).message === "string"
+    err && typeof err === "object" && "message" in err && typeof (err as { message: unknown }).message === "string"
       ? (err as { message: string }).message
       : fallback;
 
