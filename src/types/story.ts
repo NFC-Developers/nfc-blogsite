@@ -1,4 +1,4 @@
-type StoryCardProps = {
+export type StoryCardProps = {
   storyID: number,
   title: string,
   authorName: string,
@@ -12,7 +12,7 @@ type StoryCardProps = {
   stars: number
 }
 
-type Tag = {
+export type Tag = {
   name: string,
   type: string
 }
