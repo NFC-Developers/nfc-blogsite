@@ -7,6 +7,8 @@ import { Switch } from "@/components/ui/switch";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Check } from "lucide-react";
 import { usePosts } from "@/hooks/usePosts";
+import RichTextEditor from "@/components/rich-text-editor";
+
 
 export default function PostForm() {
   const { createPost, messages } = usePosts();
@@ -50,11 +52,11 @@ export default function PostForm() {
         <h1 className="font-bold text-3xl">Create your Story!</h1>
 
         <input type="text" placeholder="Enter Post Title" value={title} onChange={(e) => setTitle(e.target.value)} className="border p-2 rounded bg-white shadow-md" />
-        <textarea placeholder="Post Content" value={content} onChange={(e) => setContent(e.target.value)} className="border p-2 rounded bg-white shadow-md h-40" />
+        <RichTextEditor value={content} onChange={setContent} />
         <textarea placeholder="Short Description" value={description} onChange={(e) => setDescription(e.target.value)} className="border p-2 rounded bg-white shadow-md h-20" />
 
         <Dialog>
-          <DialogTrigger asChild><Button variant="outline">Select Tags</Button></DialogTrigger>
+          <DialogTrigger asChild><Button variant="outline">Select Tags and Maturity Content</Button></DialogTrigger>
           <DialogContent className="sm:max-w-[500px]">
             <DialogHeader><DialogTitle>Select Tags for Your Story</DialogTitle></DialogHeader>
             <div className="flex flex-wrap gap-2 mt-4">
@@ -96,7 +98,7 @@ export default function PostForm() {
           </DialogContent>
         </Dialog>
 
-        <Button type="submit" variant="add" className="max-w-[200px]">Add Post</Button>
+        <Button type="submit" variant="outline" className="max-w-[200px]">Add Post</Button>
 
         {messages.length > 0 && (
           <ul className="mt-4 text-sm text-gray-700">
