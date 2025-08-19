@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Post } from "@/types/post";
+import { Post, Tag, Rating } from "@/types/post";
 import { auth } from "@/lib/firebase";
 import { getIdToken } from "firebase/auth";
 
@@ -12,11 +12,9 @@ export function usePosts() {
     try {
       const res = await fetch(`${BACKEND_URL}/posts`);
       if (!res.ok) throw new Error(res.statusText);
-
       const data: Post[] = await res.json();
-      setMessages(data.map((p) => `${p.id}: ${p.title} by ${p.authorId}`));
+      setMessages(data.map(p => `${p.id}: ${p.title} by ${p.authorId}`));
     } catch (err: unknown) {
-      console.error(err);
       setMessages([`Error fetching: ${err instanceof Error ? err.message : "Unknown error"}`]);
     }
   };
@@ -24,8 +22,9 @@ export function usePosts() {
   const createPost = async (
     title: string,
     content: string,
-    tagNames: string[] = [],
-    isMature: boolean = false,
+    selectedTags: Tag[],
+    rating: Rating = "GENERAL",
+    isExplicit: boolean = false,
     description?: string
   ) => {
     try {
@@ -34,14 +33,16 @@ export function usePosts() {
 
       const idToken = await getIdToken(user, true);
 
-      const payload: any = { title, content, tagNames, isMature };
-      if (description) payload.description = description;
+      // Filter out invalid tags
+      const tags = selectedTags.filter(tag => tag.name && tag.categoryName);
+
+      const payload = { title, content, tags, rating, isExplicit, description };
 
       const res = await fetch(`${BACKEND_URL}/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${idToken}`, // ✅ Pass token instead of authorId
+          "Authorization": `Bearer ${idToken}`,
         },
         body: JSON.stringify(payload),
       });
@@ -52,10 +53,9 @@ export function usePosts() {
       }
 
       const post: Post = await res.json();
-      setMessages((prev) => [...prev, `Post created: ${post.id}`]);
+      setMessages(prev => [...prev, `Post created: ${post.id}`]);
     } catch (err: unknown) {
-      console.error(err);
-      setMessages((prev) => [...prev, `Error: ${err instanceof Error ? err.message : "Unknown error"}`]);
+      setMessages(prev => [...prev, `Error: ${err instanceof Error ? err.message : "Unknown error"}`]);
     }
   };
 

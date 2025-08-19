@@ -1,111 +1,100 @@
 "use client";
-
+import { useTags } from "@/hooks/useTags";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import TagSelector from "@/components/profile/tagSelector";
+import { PostFormProps } from "@/types/post";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
-import { Check } from "lucide-react";
-import { usePosts } from "@/hooks/usePosts";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import RichTextEditor from "@/components/rich-text-editor";
 
-
-export default function PostForm() {
-  const { createPost, messages } = usePosts();
+export default function PostForm({ onSubmit }: PostFormProps) {
+  const { 
+    tags, 
+    selectedTags, 
+    toggleTag, 
+    addTag, 
+    inputValue, 
+    setInputValue, 
+    inputCategory, 
+    setInputCategory, 
+    categories, 
+    rating, 
+    setRating, 
+    isExplicit, 
+    setIsExplicit 
+  } = useTags();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
-  const [tags, setTags] = useState<string[]>(["Adventure", "Romance", "Mystery", "Comedy", "Horror"]);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState("");
-  const [isMature, setIsMature] = useState(false);
 
-  const toggleTag = (tag: string) => {
-    setSelectedTags((prev) => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
-  };
-
-  const handleAddTag = () => {
-    if (inputValue && !tags.includes(inputValue)) {
-      setTags(prev => [...prev, inputValue]);
-      toggleTag(inputValue);
-      setInputValue("");
-    }
-  };
+  // 🔑 control dialog open/close
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !content) return;
-
-    await createPost(title, content, selectedTags, isMature, description);
+    await onSubmit(title, content, selectedTags, rating, isExplicit, description);
 
     setTitle("");
     setContent("");
     setDescription("");
-    setSelectedTags([]);
-    setIsMature(false);
   };
 
   return (
     <div className="bg-gray-100 p-6 rounded-lg max-w-[1000px] w-full border border-gray-300 shadow-md">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <h1 className="font-bold text-3xl">Create your Story!</h1>
-
-        <input type="text" placeholder="Enter Post Title" value={title} onChange={(e) => setTitle(e.target.value)} className="border p-2 rounded bg-white shadow-md" />
+        <input
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          className="border p-2 rounded bg-white shadow-md"
+        />
         <RichTextEditor value={content} onChange={setContent} />
-        <textarea placeholder="Short Description" value={description} onChange={(e) => setDescription(e.target.value)} className="border p-2 rounded bg-white shadow-md h-20" />
+        <textarea
+          placeholder="Short Description"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+          className="border p-2 rounded bg-white shadow-md h-20"
+        />
 
-        <Dialog>
-          <DialogTrigger asChild><Button variant="outline">Select Tags and Maturity Content</Button></DialogTrigger>
+        {/* ✅ controlled Dialog */}
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button variant="outline">Select Tags & Rating</Button>
+          </DialogTrigger>
           <DialogContent className="sm:max-w-[500px]">
-            <DialogHeader><DialogTitle>Select Tags for Your Story</DialogTitle></DialogHeader>
-            <div className="flex flex-wrap gap-2 mt-4">
-              {selectedTags.map(tag => (
-                <div key={tag} className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm flex items-center gap-1">
-                  {tag}
-                  <button type="button" onClick={() => toggleTag(tag)} className="font-bold ml-1">×</button>
-                </div>
-              ))}
-            </div>
-
-            <Command className="mt-4 border rounded-lg shadow-md">
-              <CommandInput
-                placeholder="Search or create tag..."
-                value={inputValue}
-                onValueChange={setInputValue}
-                onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleAddTag(); } }}
-              />
-              <CommandList>
-                {tags.length === 0 && <CommandEmpty>No tags found.</CommandEmpty>}
-                <CommandGroup>
-                  {tags.filter(tag => tag.toLowerCase().includes(inputValue.toLowerCase())).slice(0,6).map(tag => (
-                    <CommandItem key={tag} onSelect={() => toggleTag(tag)} className="flex items-center justify-between">
-                      {tag} {selectedTags.includes(tag) && <Check className="ml-2 h-4 w-4" />}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-
-            <div className="flex items-center gap-2 mt-4">
-              <Switch id="mature-content" checked={isMature} onCheckedChange={setIsMature} />
-              <label htmlFor="mature-content" className="text-sm">Mature Content?</label>
-            </div>
-
+            <DialogHeader>
+              <DialogTitle>Tags & Rating</DialogTitle>
+            </DialogHeader>
+            <TagSelector
+              tags={tags}
+              selectedTags={selectedTags}
+              toggleTag={toggleTag}
+              addTag={addTag}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              inputCategory={inputCategory}
+              setInputCategory={setInputCategory}
+              categories={categories}
+              rating={rating}
+              setRating={setRating}
+              isExplicit={isExplicit}
+              setIsExplicit={setIsExplicit}
+            />
             <DialogFooter>
-              <Button onClick={() => console.log(selectedTags)}>Done</Button>
+              <Button type="button" onClick={() => setOpen(false)}>Done</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
-        <Button type="submit" variant="outline" className="max-w-[200px]">Add Post</Button>
-
-        {messages.length > 0 && (
-          <ul className="mt-4 text-sm text-gray-700">
-            {messages.map((msg, idx) => <li key={idx}>{msg}</li>)}
-          </ul>
-        )}
+        <Button type="submit" variant="outline" className="max-w-[200px]">
+          Add Post
+        </Button>
       </form>
     </div>
   );
 }
+  
