@@ -35,7 +35,6 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
               key={story.id}
               storyID={story.id}
               title={story.title}
-              authorName={story.author.displayName}
               authorID={story.author.firebaseUid}
               tags={story.tags.map((tag) => ({ name: tag.name, type: tag.type }))}
               summary={story.description || story.content}
