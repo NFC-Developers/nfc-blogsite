@@ -1,54 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
-import { StoryCard } from "@/components/shared/StoryCard";
-import type { StoryCardProps } from "@/types/story";
-import type { Tag } from "@/types/story"; 
-
-// Define Story type for mock/fetching
-type Story = {
-  id: string;
-  title: string;
-  summary: string;
-  createdAt: string;
-};
-
-interface UserStoriesListProps {
-  userId: string;
-}
+import StoryCardComponent from "@/components/shared/StoryCard";
+import type { UserStoriesListProps } from "@/types/story";
+import { useUserStories } from "@/hooks/useUserStories";
 
 export default function UserStoriesList({ userId }: UserStoriesListProps) {
-  const [stories, setStories] = useState<Story[]>([]);
-  const [search, setSearch] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const STORIES_PER_PAGE = 10;
-
-  useEffect(() => {
-    const mockStories: Story[] = Array.from({ length: 23 }, (_, i) => ({
-      id: (i + 1).toString(),
-      title: `Story ${i + 1}`,
-      summary: `This is the summary for story ${i + 1}`,
-      createdAt: "2025-08-01",
-    }));
-    setStories(mockStories);
-  }, [userId]);
-
-  const filteredStories = stories.filter((s) =>
-    s.title.toLowerCase().includes(search.toLowerCase())
-  );
-
-  // Pagination
-  const totalPages = Math.ceil(filteredStories.length / STORIES_PER_PAGE);
-  const startIndex = (currentPage - 1) * STORIES_PER_PAGE;
-  const paginatedStories = filteredStories.slice(
-    startIndex,
-    startIndex + STORIES_PER_PAGE
-  );
+  const {
+    stories,
+    search,
+    setSearch,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+  } = useUserStories(userId, 10);
 
   return (
     <div className="bg-gray-800 p-6 rounded-2xl shadow-lg mt-6 mr-4">
-      {/* Search bar */}
       <div className="mb-4">
         <Input
           type="text"
@@ -59,23 +28,22 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
         />
       </div>
 
-      {/* Stories List: single column */}
       <div className="flex flex-col gap-4">
-        {paginatedStories.length > 0 ? (
-          paginatedStories.map((story) => (
-            <StoryCard
+        {stories.length > 0 ? (
+          stories.map((story) => (
+            <StoryCardComponent
               key={story.id}
-              storyID={0}
+              storyID={story.id}
               title={story.title}
-              authorName=""
-              authorID={0}
-              tags={[]}
-              summary={story.summary}
-              rating=""
-              coverImg=""
-              words={0}
-              views={0}
-              stars={0}
+              authorName={story.author.displayName}
+              authorID={story.author.firebaseUid}
+              tags={story.tags.map((tag) => ({ name: tag.name, type: tag.type }))}
+              summary={story.description || story.content}
+              rating={story.rating}
+              coverImg={story.coverImg || ""}
+              words={story.words || story.content.split(" ").length}
+              views={story.views || 0}
+              stars={story.stars || 0}
             />
           ))
         ) : (
@@ -83,7 +51,6 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
         )}
       </div>
 
-      {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="flex justify-center gap-2 mt-6">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
