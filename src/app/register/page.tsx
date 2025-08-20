@@ -1,7 +1,6 @@
-// app/login/page.tsx
 import AuthForm from "@/components/auth/AuthForm";
 
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return  <AuthForm mode="register" />;
 }
