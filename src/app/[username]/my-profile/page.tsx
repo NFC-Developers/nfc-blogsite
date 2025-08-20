@@ -35,7 +35,6 @@ export default function MemberPage() {
   }
 
   const username = user.displayName || user.email?.split("@")[0] || "unknown";
-  const avatarUrl = user.photoURL || "/profile.jpg";
 
   return (
     <>
@@ -45,7 +44,6 @@ export default function MemberPage() {
           name={user.displayName || "Anonymous"}
           username={username}
           description="A writer or such."
-          avatarUrl={avatarUrl}
           isOnline={true}
           memberSince={user.metadata.creationTime || "Unknown"}
         >

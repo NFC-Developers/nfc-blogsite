@@ -26,7 +26,6 @@ import Image from "next/image";
 
 export default function Navbar() {
   const { user, loading, handleLogout } = useAuthForm();
-
   return (
     <header className="w-full">
       {/* Top Navbar */}
@@ -34,9 +33,9 @@ export default function Navbar() {
         <div className="mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-2 sm:px-6 max-w-7xl">
           {/* Logo and Browse */}
           <div className="flex items-center gap-4 flex-shrink-0">
-            <Link href="/" className="flex items-center">
+            <Link href="/home" className="flex items-center">
               <Image
-                src="null"
+                src = "/images/profile-placeholder.jpg"
                 alt="LOGO"
                 width={20} 
                 height={20} 
