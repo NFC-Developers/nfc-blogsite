@@ -9,9 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { Star, StarHalf } from "lucide-react";
 import { getRatingColor, getTagColor } from "@/hooks/useStoryCard";
 import type { Tag } from "@/types/story";
+import { InteractiveStarRating } from "./StarRating";
 
 export interface StoryCardProps {
   storyID: string;
@@ -38,59 +38,18 @@ function TagDisp(props: Tag) {
   );
 }
 
-function StarRating({ stars }: { stars: number }) {
-  const totalStars = 5;
-  const roundedStars = Math.round(stars * 2) / 2;
-
-  return (
-    <div className="inline-flex align-text-top gap-0.5">
-      {Array.from({ length: totalStars }).map((_, i: number) => {
-        if (i + 1 <= roundedStars) {
-          return (
-            <Star
-              key={i}
-              size={16}
-              className="text-orange-500"
-              fill="currentColor"
-            />
-          );
-        } else if (i + 0.5 === roundedStars) {
-          return (
-            <StarHalf
-              key={i}
-              size={16}
-              className="text-orange-500"
-              fill="currentColor"
-            />
-          );
-        } else {
-          return <Star key={i} size={16} className="text-gray-300" />;
-        }
-      })}
-    </div>
-  );
-}
 
 export default function StoryCard(props: StoryCardProps) {
-  const ratingColor = getRatingColor(props.rating);
   const tagList = props.tags.map((tag: Tag, index: number) => (
     <TagDisp key={index} {...tag} />
   ));
-  const summary = props.summary
-    .split("\n")
-    .map((str: string, index: number) => (
-      <span key={index}>
-        {str}
-        <br />
-      </span>
-    ));
 
   const [storyData, setStoryData] = useState<{
     authorName: string;
     createdAt: string;
-    // updatedAt: string;
     title: string;
     description: string;
+    content: string;
     tags: Tag[];
     rating: string;
     words: number;
@@ -106,7 +65,6 @@ export default function StoryCard(props: StoryCardProps) {
         );
         if (!res.ok) throw new Error("Failed to fetch story");
         const data = await res.json();
-
         setStoryData({
           authorName: data.author?.name || "Unknown",
           createdAt: new Date(data.createdAt).toLocaleDateString("en-US", {
@@ -116,11 +74,12 @@ export default function StoryCard(props: StoryCardProps) {
           }),
           // updatedAt: new Date(data.updatedAt).toLocaleDateString("en-US", {
           //   year: "numeric",
-          //   month: "short",
+          //   month: "short",  
           //   day: "numeric",
           // }),
           title: data.title,
           description: data.description,
+          content: data.content,
           tags: data.tags,
           rating: data.rating,
           words: data.words,
@@ -135,6 +94,9 @@ export default function StoryCard(props: StoryCardProps) {
     fetchStoryDetails();
   }, [props.storyID]);
 
+  const wordCount = storyData?.content
+    ? storyData.content.trim().split(/\s+/).length
+    : 0;
   return (
     <Card className="w-full">
       <CardHeader>
@@ -173,12 +135,11 @@ export default function StoryCard(props: StoryCardProps) {
       <CardFooter>
         <div className="rounded-sm bg-gray-100 w-full p-2 text-sm text-gray-800 flex flex-col gap-1">
           <div>
-            {storyData?.words} words • {storyData?.views} views •{" "}
-            <StarRating stars={storyData?.stars || 0} /> {storyData?.stars}{" "}
-            stars
+            {wordCount} words • {storyData?.views} views •{" "}
+            <InteractiveStarRating rating={storyData?.stars || 0} /> stars
           </div>
           <div className="text-gray-500 text-xs">
-            Created: {storyData?.createdAt} 
+            Created: {storyData?.createdAt}
             {/* • Updated: {storyData?.updatedAt} */}
           </div>
         </div>
