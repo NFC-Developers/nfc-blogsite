@@ -5,7 +5,7 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import Navbar from "@/components/shared/NavigationBar"; 
 
-import { Announcement } from "@/components/shared/Announcement";
+// import { Announcement } from "@/components/shared/Announcement";
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -51,29 +51,29 @@ export default function Home() {
     }
   };
   {/* For testing. Delete later. */}
-  const testStory = {
-    storyID: 111111,
-    title: "title",
-    authorName: "author",
-    authorID: 111111,
-    tags: [
-      {name:"Fandom",type:"fandom"},
-      {name:"Character",type:"character"},
-      {name:"Warning",type:"warning"},
-      {name:"Genre",type:"genre"},
-      {name:"Other",type:"other"}
-    ],
-    summary: "Summary",
-    rating: "M",
-    coverImg: "",
-    words: 1111,
-    views: 2222,
-    stars: 2.5
-  };
-  const testStoryArray = Array(6).fill(testStory).map((x,index)=>{
-    x.storyID=index;
-    return {...x};
-  });
+  // const testStory = {
+  //   storyID: 111111,
+  //   title: "title",
+  //   authorName: "author",
+  //   authorID: 111111,
+  //   tags: [
+  //     {name:"Fandom",type:"fandom"},
+  //     {name:"Character",type:"character"},
+  //     {name:"Warning",type:"warning"},
+  //     {name:"Genre",type:"genre"},
+  //     {name:"Other",type:"other"}
+  //   ],
+  //   summary: "Summary",
+  //   rating: "M",
+  //   coverImg: "",
+  //   words: 1111,
+  //   views: 2222,
+  //   stars: 2.5
+  // };
+  // const testStoryArray = Array(6).fill(testStory).map((x,index)=>{
+  //   x.storyID=index;
+  //   return {...x};
+  // });
 
   return (
     <div className="font-sans min-h-screen flex flex-col">
@@ -127,7 +127,7 @@ export default function Home() {
           ))}
         </div>
         {/* For testing purposes. Remove later. */}
-        <Announcement
+        {/* <Announcement
           stories={[{
             storyID: 123456,
             title: "Operation: Huggies!",
@@ -212,7 +212,7 @@ export default function Home() {
             stars: 4
           },
           ...testStoryArray]}
-        />
+        /> */}
       </main>
     </div>
   );
