@@ -9,9 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { Star, StarHalf } from "lucide-react";
 import { getRatingColor, getTagColor } from "@/hooks/useStoryCard";
 import type { Tag } from "@/types/story";
+import { InteractiveStarRating } from "./StarRating";
 
 export interface StoryCardProps {
   storyID: string;
@@ -26,74 +26,27 @@ export interface StoryCardProps {
   stars: number;
 }
 
-function TagDisp(props: Tag) {
-  const tagColor = getTagColor(props.type);
+function TagDisp({ name, type }: { name: string; type?: string }) {
+  const tagColor = getTagColor(type || "default");
   return (
     <Link
-      href={"/tag/" + encodeURIComponent(props.name)}
-      className={`inline-block rounded-sm mr-1 text-white px-2 hover:underline ${tagColor}`}
+      href={`/tag/${encodeURIComponent(name)}`}
+      className={`inline-block rounded-sm px-2 py-1 text-white text-sm hover:underline ${tagColor}`}
     >
-      {props.name}
+      {name}
     </Link>
   );
 }
 
-function StarRating({ stars }: { stars: number }) {
-  const totalStars = 5;
-  const roundedStars = Math.round(stars * 2) / 2;
-
-  return (
-    <div className="inline-flex align-text-top gap-0.5">
-      {Array.from({ length: totalStars }).map((_, i: number) => {
-        if (i + 1 <= roundedStars) {
-          return (
-            <Star
-              key={i}
-              size={16}
-              className="text-orange-500"
-              fill="currentColor"
-            />
-          );
-        } else if (i + 0.5 === roundedStars) {
-          return (
-            <StarHalf
-              key={i}
-              size={16}
-              className="text-orange-500"
-              fill="currentColor"
-            />
-          );
-        } else {
-          return <Star key={i} size={16} className="text-gray-300" />;
-        }
-      })}
-    </div>
-  );
-}
-
 export default function StoryCard(props: StoryCardProps) {
-  const ratingColor = getRatingColor(props.rating);
-  const tagList = props.tags.map((tag: Tag, index: number) => (
-    <TagDisp key={index} {...tag} />
-  ));
-  const summary = props.summary
-    .split("\n")
-    .map((str: string, index: number) => (
-      <span key={index}>
-        {str}
-        <br />
-      </span>
-    ));
-
   const [storyData, setStoryData] = useState<{
     authorName: string;
     createdAt: string;
-    // updatedAt: string;
     title: string;
     description: string;
+    content: string;
     tags: Tag[];
     rating: string;
-    words: number;
     views: number;
     stars: number;
   } | null>(null);
@@ -114,16 +67,11 @@ export default function StoryCard(props: StoryCardProps) {
             month: "short",
             day: "numeric",
           }),
-          // updatedAt: new Date(data.updatedAt).toLocaleDateString("en-US", {
-          //   year: "numeric",
-          //   month: "short",
-          //   day: "numeric",
-          // }),
           title: data.title,
           description: data.description,
-          tags: data.tags,
+          content: data.content,
+          tags: data.tags || [],
           rating: data.rating,
-          words: data.words,
           views: data.views,
           stars: data.stars,
         });
@@ -135,10 +83,14 @@ export default function StoryCard(props: StoryCardProps) {
     fetchStoryDetails();
   }, [props.storyID]);
 
+  const wordCount = storyData?.content
+    ? storyData.content.trim().split(/\s+/).length
+    : 0;
+
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
           <div
             className={`inline-block rounded-sm w-8 h-8 text-xl text-center leading-8 text-white ${getRatingColor(
               storyData?.rating || props.rating
@@ -163,23 +115,26 @@ export default function StoryCard(props: StoryCardProps) {
           </span>
         </CardTitle>
       </CardHeader>
+
       <CardContent>
-        {storyData?.tags?.map((tag, i) => (
-          <TagDisp key={i} {...tag} />
-        ))}
+        <div className="flex flex-wrap gap-1 mb-2">
+          {storyData?.tags?.map((tag, i) => (
+            <TagDisp key={i} name={tag.name} type={tag.type} />
+          ))}
+        </div>
         <hr className="my-3" />
         {storyData?.description}
       </CardContent>
+
       <CardFooter>
         <div className="rounded-sm bg-gray-100 w-full p-2 text-sm text-gray-800 flex flex-col gap-1">
-          <div>
-            {storyData?.words} words • {storyData?.views} views •{" "}
-            <StarRating stars={storyData?.stars || 0} /> {storyData?.stars}{" "}
-            stars
+          <div className="flex items-center gap-2">
+            {wordCount} words • {storyData?.views} views •{" "}
+            <InteractiveStarRating rating={storyData?.stars || 0} />
+            <span>{storyData?.stars}</span> stars
           </div>
           <div className="text-gray-500 text-xs">
-            Created: {storyData?.createdAt} 
-            {/* • Updated: {storyData?.updatedAt} */}
+            Created: {storyData?.createdAt}
           </div>
         </div>
       </CardFooter>
