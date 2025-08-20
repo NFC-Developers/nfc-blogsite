@@ -17,9 +17,12 @@ import {
 import { z } from "zod";
 import type { AuthErrors, UseAuthFormReturn, AuthMode } from "@/types/auth";
 
-const schema = z.object({
+const baseSchema = z.object({
   email: z.string().email("Invalid email format"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
+});
+
+const registerSchema = baseSchema.extend({
   username: z.string().min(3, "Username must be at least 3 characters long"),
 });
 
@@ -51,7 +54,7 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${idToken}`,
+          Authorization: `Bearer ${idToken}`,
         },
         body: JSON.stringify({
           name: firebaseUser.displayName || username || "Anonymous",
@@ -66,8 +69,9 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
 
   const handleSubmit = async () => {
     if (!mode) return;
+    const schemaToUse = mode === "register" ? registerSchema : baseSchema;
+    const result = schemaToUse.safeParse({ email, password, username });
 
-    const result = schema.safeParse({ email, password, username });
     if (!result.success) {
       const fieldErrors: AuthErrors = {};
       result.error.issues.forEach((err) => {
@@ -82,13 +86,21 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
     setErrors({});
     try {
       if (mode === "login") {
-        const userCred = await signInWithEmailAndPassword(auth, email, password);
+        const userCred = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
         setMessage(`Logged in as ${userCred.user.email}`);
 
         await preRegisterUser(userCred.user); // ✅ pre-register
         router.push("/home");
       } else {
-        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+        const userCred = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
         if (username) {
           await updateProfile(userCred.user, { displayName: username });
         }
@@ -106,7 +118,9 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
     try {
       const provider = new GoogleAuthProvider();
       const userCred = await signInWithPopup(auth, provider);
-      setMessage(`Logged in as ${userCred.user.displayName || userCred.user.email}`);
+      setMessage(
+        `Logged in as ${userCred.user.displayName || userCred.user.email}`
+      );
 
       await preRegisterUser(userCred.user); // ✅ pre-register
       router.push("/home");
@@ -141,7 +155,10 @@ export function useAuthForm(mode?: AuthMode): UseAuthFormReturn {
   };
 
   const getErrorMessage = (err: unknown, fallback: string) =>
-    err && typeof err === "object" && "message" in err && typeof (err as { message: unknown }).message === "string"
+    err &&
+    typeof err === "object" &&
+    "message" in err &&
+    typeof (err as { message: unknown }).message === "string"
       ? (err as { message: string }).message
       : fallback;
 

@@ -59,7 +59,6 @@ export default function AuthForm({ mode }: AuthFormProps) {
           )}
         </div>
 
-        {/* Username (only for register) */}
         {mode === "register" && (
           <div className="mt-4">
             <input
@@ -75,7 +74,6 @@ export default function AuthForm({ mode }: AuthFormProps) {
           </div>
         )}
 
-        {/* Submit */}
         <button
           onClick={handleSubmit}
           className={`w-full mt-6 py-3 rounded-lg font-semibold transition text-white ${
@@ -87,14 +85,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
           {mode === "login" ? "Login" : "Register"}
         </button>
 
-        {/* Divider */}
         <div className="flex items-center my-6">
           <div className="flex-1 h-px bg-gray-300" />
           <span className="px-3 text-gray-500 text-sm">or</span>
           <div className="flex-1 h-px bg-gray-300" />
         </div>
 
-        {/* Google login */}
         <button
           onClick={handleGoogleLogin}
           className="w-full flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-lg bg-white hover:bg-gray-50 transition"
@@ -108,8 +104,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             Continue with Google
           </span>
         </button>
-
-        {/* Switch */}
+        
         <p className="text-center text-sm text-gray-600 mt-6">
           {mode === "login" ? (
             <>
