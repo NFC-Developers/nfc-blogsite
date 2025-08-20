@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useAuthForm } from "@/hooks/useAuthForm";
 import UserStoriesList from "@/components/profile/userStoriesTable"; 
-import type { UserStoriesListProps } from "@/types/story";
+// import type { UserStoriesListProps } from "@/types/story";
 
 export default function MemberPage() {
   const { user, loading } = useAuthForm();

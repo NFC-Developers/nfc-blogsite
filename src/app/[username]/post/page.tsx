@@ -6,17 +6,18 @@ import { onAuthStateChanged } from "firebase/auth";
 import Navbar from "@/components/shared/NavigationBar";
 import PostForm from "@/components/profile/add/saveStoryForm";
 import { usePosts } from "@/hooks/usePosts";
+import { Rating ,Tag} from "@/types/post";
+
 
 export default function AddPostPage() {
   const [user, setUser] = useState<User | null>(null);
   const { messages, createPost } = usePosts();
-
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, setUser);
     return () => unsub();
   }, []);
 
-  const handlePostSubmit = async (title: string, content: string, selectedTags: any, rating: any, isExplicit: boolean, description?: string) => {
+  const handlePostSubmit = async (title: string, content: string, selectedTags: Tag[], rating: Rating, isExplicit: boolean, description?: string) => {
     if (!user) return;
     await createPost(title, content, selectedTags, rating, isExplicit, description);
   };

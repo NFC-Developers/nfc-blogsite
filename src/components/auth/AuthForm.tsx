@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useAuthForm } from "@/hooks/useAuthForm";
 import type { AuthFormProps } from "@/types/auth";
-
+import Image from "next/image";
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const {
@@ -95,16 +95,18 @@ export default function AuthForm({ mode }: AuthFormProps) {
           onClick={handleGoogleLogin}
           className="w-full flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-lg bg-white hover:bg-gray-50 transition"
         >
-          <img
+          <Image
             src="https://www.svgrepo.com/show/475656/google-color.svg"
             alt="Google"
-            className="w-5 h-5"
+            width={20} 
+            height={20}
+            className="inline-block"
           />
           <span className="text-gray-700 font-medium">
             Continue with Google
           </span>
         </button>
-        
+
         <p className="text-center text-sm text-gray-600 mt-6">
           {mode === "login" ? (
             <>

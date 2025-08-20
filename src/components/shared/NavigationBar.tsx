@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import BrowseDialog from "./BrowseDialog";
 import { useAuthForm } from "@/hooks/useAuthForm";
+import Image from "next/image";
 
 export default function Navbar() {
   const { user, loading, handleLogout } = useAuthForm();
@@ -34,7 +35,13 @@ export default function Navbar() {
           {/* Logo and Browse */}
           <div className="flex items-center gap-4 flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="h-8 w-8" />
+              <Image
+                src=""
+                alt="LOGO"
+                width={20} 
+                height={20} 
+                className="inline-block"
+              />
             </Link>
             <BrowseDialog />
           </div>

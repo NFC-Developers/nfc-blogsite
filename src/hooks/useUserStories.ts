@@ -38,7 +38,7 @@ export function useUserStories(userId: string, storiesPerPage = 10) {
     }
 
     fetchUserPosts();
-  }, [userId, user]);
+  }, [userId, user, BACKEND_URL]);
 
   const filteredStories = stories.filter((s) =>
     s.title.toLowerCase().includes(search.toLowerCase())
