@@ -25,7 +25,7 @@ export function usePosts() {
     selectedTags: Tag[],
     rating: Rating = "GENERAL",
     isExplicit: boolean = false,
-    description?: string
+    description: string = ""
   ) => {
     try {
       const user = auth.currentUser;
@@ -33,12 +33,14 @@ export function usePosts() {
 
       const idToken = await getIdToken(user, true);
 
-      // Filter out invalid tags
-      const tags = selectedTags.filter(tag => tag.name && tag.categoryName);
+      // Only send valid tags
+      const tags = selectedTags
+        .filter(tag => tag.name && tag.categoryName)
+        .map(tag => ({ name: tag.name, categoryName: tag.categoryName }));
 
-      const payload = { title, content, tags, rating, isExplicit, description };
+      const payload = { title, content, description, tags, rating, isExplicit };
 
-      const res = await fetch(`${BACKEND_URL}/posts`, {
+      const res = await fetch(`${BACKEND_URL}/user/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +57,10 @@ export function usePosts() {
       const post: Post = await res.json();
       setMessages(prev => [...prev, `Post created: ${post.id}`]);
     } catch (err: unknown) {
-      setMessages(prev => [...prev, `Error: ${err instanceof Error ? err.message : "Unknown error"}`]);
+      setMessages(prev => [
+        ...prev,
+        `Error: ${err instanceof Error ? err.message : "Unknown error"}`,
+      ]);
     }
   };
 

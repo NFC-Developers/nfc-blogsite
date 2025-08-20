@@ -6,7 +6,8 @@ import Navbar from "@/components/shared/NavigationBar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useAuthForm } from "@/hooks/useAuthForm";
-import UserStoriesTable from "@/components/profile/userStoriesTable"; 
+import UserStoriesList from "@/components/profile/userStoriesTable"; 
+import type { UserStoriesListProps } from "@/types/story";
 
 export default function MemberPage() {
   const { user, loading } = useAuthForm();
@@ -63,7 +64,8 @@ export default function MemberPage() {
           </div>
         </Profile>
 
-        <UserStoriesTable userId={user.uid} />
+        {/* Pass userId to fetch user-specific posts */}
+        <UserStoriesList userId={user.uid} />
       </div>
     </>
   );
