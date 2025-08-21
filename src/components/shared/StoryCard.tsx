@@ -1,85 +1,143 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import Link from "next/link";
-import { Star, StarHalf, Star as StarEmpty } from "lucide-react";
 import { getRatingColor, getTagColor } from "@/hooks/useStoryCard";
-import { StoryCardProps, Tag } from "@/types/story";
+import type { Tag } from "@/types/story";
+import { InteractiveStarRating } from "./StarRating";
 
-function TagDisp(props: Tag) {
-  const tagColor = getTagColor(props.type);
-  return <Link 
-  href={"/tag/"+encodeURIComponent(props.name)} 
-  className={`inline-block rounded-sm mr-1 mb-1 text-white px-2 hover:underline ${tagColor}`}>
-    {props.name}
-  </Link>;
+export interface StoryCardProps {
+  storyID: string;
+  title: string;
+  authorID: string;
+  tags: Tag[];
+  summary: string;
+  rating: string;
+  coverImg?: string;
+  words: number;
+  views: number;
+  stars: number;
 }
 
-function StarRating({ stars }: { stars: number }) {
-  const totalStars = 5;
-  const roundedStars = Math.round(stars * 2) / 2; // nearest 0.5
-
+function TagDisp({ name, type }: { name: string; type?: string }) {
+  const tagColor = getTagColor(type || "default");
   return (
-    <div className="inline-flex align-text-top gap-0.5">
-      {Array.from({ length: totalStars }).map((_, i) => {
-        if (i + 1 <= roundedStars) {
-          return <Star key={i} size={16} className="text-orange-500" fill="currentColor" />;
-        } else if (i + 0.5 === roundedStars) {
-          return <StarHalf key={i} size={16} className="text-orange-500" fill="currentColor" />;
-        } else {
-          return <Star key={i} size={16} className="text-gray-300" />;
-        }
-      })}
-    </div>
+    <Link
+      href={`/tag/${encodeURIComponent(name)}`}
+      className={`inline-block rounded-sm px-2 py-1 text-white text-sm hover:underline ${tagColor}`}
+    >
+      {name}
+    </Link>
   );
 }
 
-export function StoryCard(props: StoryCardProps & {large: boolean}) {
-  const isLarge = props.large ?? true;
-  const ratingColor = getRatingColor(props.rating);
-  const tagList = props.tags.map((tag,index)=><TagDisp key={index} name={tag.name} type={tag.type}/>);
-  const summary = props.summary.split("\n").map((str,index)=><span key={index}>{str}<br/></span>);
+export default function StoryCard(props: StoryCardProps) {
+  const [storyData, setStoryData] = useState<{
+    authorName: string;
+    createdAt: string;
+    title: string;
+    description: string;
+    content: string;
+    tags: Tag[];
+    rating: string;
+    views: number;
+    stars: number;
+  } | null>(null);
+
+  useEffect(() => {
+    async function fetchStoryDetails() {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/stories/${props.storyID}`
+        );
+        if (!res.ok) throw new Error("Failed to fetch story");
+        const data = await res.json();
+
+        setStoryData({
+          authorName: data.author?.name || "Unknown",
+          createdAt: new Date(data.createdAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          }),
+          title: data.title,
+          description: data.description,
+          content: data.content,
+          tags: data.tags || [],
+          rating: data.rating,
+          views: data.views,
+          stars: data.stars,
+        });
+      } catch (err) {
+        console.error("Error fetching story details:", err);
+      }
+    }
+
+    fetchStoryDetails();
+  }, [props.storyID]);
+
+  const wordCount = storyData?.content
+    ? storyData.content.trim().split(/\s+/).length
+    : 0;
+
   return (
     <Card className={`w-full gap-1 ${isLarge ? "" : "text-sm"}`}>
       <CardHeader>
-        <CardTitle>
-          <div 
-            className={
-              `inline-block rounded-sm text-center text-white ${ratingColor} 
-              ${isLarge ? "w-8 h-8 text-xl leading-8" : "w-6 h-6 text-base leading-6"}`
-            }
+        <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+          <div
+            className={`inline-block rounded-sm w-8 h-8 text-xl text-center leading-8 text-white ${getRatingColor(
+              storyData?.rating || props.rating
+            )}`}
           >
-            {props.rating}
+            {storyData?.rating || props.rating}
           </div>
           <Link
-            href={"/story/"+props.storyID} 
-            className={`hover:underline ${isLarge ? "ml-3 text-xl" : "ml-2 text-lg"}`}
+            href={"/story/" + props.storyID}
+            className="ml-3 font-bold text-xl hover:underline"
           >
-            {props.title}
+            {storyData?.title || props.title}
           </Link>
           <span className={`text-gray-500 ${isLarge ? "ml-2 text-lg" : "ml-1 text-base"}`}>
             by
-            <Link href={"/user/"+props.authorID} className="hover:underline ml-1">
-              {props.authorName}
+            <Link
+              href={"/user/" + props.authorID}
+              className="hover:underline ml-1"
+            >
+              {storyData?.authorName || "..."}
             </Link>
           </span>
         </CardTitle>
       </CardHeader>
+
       <CardContent>
-        {tagList}
-        <hr className="my-3"/>
-        {summary}
+        <div className="flex flex-wrap gap-1 mb-2">
+          {storyData?.tags?.map((tag, i) => (
+            <TagDisp key={i} name={tag.name} type={tag.type} />
+          ))}
+        </div>
+        <hr className="my-3" />
+        {storyData?.description}
       </CardContent>
+
       <CardFooter>
-        <div className="rounded-sm bg-gray-100 w-full p-2 text-sm text-gray-800">
-          {props.words} words • {props.views} views • <StarRating stars={props.stars}/> {props.stars} stars
+        <div className="rounded-sm bg-gray-100 w-full p-2 text-sm text-gray-800 flex flex-col gap-1">
+          <div className="flex items-center gap-2">
+            {wordCount} words • {storyData?.views} views •{" "}
+            <InteractiveStarRating rating={storyData?.stars || 0} />
+            <span>{storyData?.stars}</span> stars
+          </div>
+          <div className="text-gray-500 text-xs">
+            Created: {storyData?.createdAt}
+          </div>
         </div>
       </CardFooter>
     </Card>
   );
 }
-

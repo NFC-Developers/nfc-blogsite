@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String       @id @default(cuid())
+  firebaseUid String?      @unique
+  email       String       @unique
+  name        String?
+  description String?
+  role        Role         @default(USER)
+  birthdate   DateTime?
+  createdAt   DateTime     @default(now())
+  blogs       Blog[]
+  comments    Comment[]
+  followers   Follower[]   @relation("followed")
+  following   Follower[]   @relation("following")
+  posts       Post[]
+  starRatings StarRating[]
+}
+
+model Follower {
+  id         String   @id @default(cuid())
+  followerId String
+  followedId String
+  createdAt  DateTime @default(now())
+  followed   User     @relation("followed", fields: [followedId], references: [id])
+  follower   User     @relation("following", fields: [followerId], references: [id])
+
+  @@unique([followerId, followedId])
+}
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  bannerUrl   String?
+  ownerId     String
+  createdAt   DateTime @default(now())
+  owner       User     @relation(fields: [ownerId], references: [id])
+}
+
+model Post {
+  id           String       @id @default(cuid())
+  title        String
+  description  String?
+  content      String
+  authorId     String
+  rating       Rating       @default(GENERAL)
+  isExplicit   Boolean?
+  commentCount Int          @default(0)
+  createdAt    DateTime     @default(now())
+  views        Int          @default(0)
+  comments     Comment[]
+  author       User         @relation(fields: [authorId], references: [id])
+  stars        StarRating[]
+  tags         Tag[]        @relation("PostTags")
+}
+
+model StarRating {
+  id        String   @id @default(cuid())
+  userId    String
+  postId    String
+  rating    Int
+  createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, postId])
+}
+
+model TagCategory {
+  id   String @id @default(cuid())
+  name String @unique
+  tags Tag[]
+}
+
+model Tag {
+  id         String      @id @default(cuid())
+  name       String
+  categoryId String
+  category   TagCategory @relation(fields: [categoryId], references: [id])
+  posts      Post[]      @relation("PostTags")
+
+  @@unique([name, categoryId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  postId    String
+  authorId  String
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+}
+
+enum Role {
+  GUEST
+  USER
+  MODERATOR
+}
+
+enum Rating {
+  GENERAL
+  TEEN
+  MATURE
+}

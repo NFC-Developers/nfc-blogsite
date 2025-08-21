@@ -1,23 +1,25 @@
 "use client";
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { usePosts } from "@/hooks/usePosts";
-import PostForm from "@/components/member/add/saveStoryForm";
+import { auth } from "@/lib/firebase";
+import type { User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import Navbar from "@/components/shared/NavigationBar";
+import PostForm from "@/components/profile/add/saveStoryForm";
+import { usePosts } from "@/hooks/usePosts";
+import { Rating ,Tag} from "@/types/post";
+
 
 export default function AddPostPage() {
   const [user, setUser] = useState<User | null>(null);
   const { messages, createPost } = usePosts();
-
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => setUser(firebaseUser));
+    const unsub = onAuthStateChanged(auth, setUser);
     return () => unsub();
   }, []);
 
-  const handlePostSubmit = async (title: string, content: string) => {
+  const handlePostSubmit = async (title: string, content: string, selectedTags: Tag[], rating: Rating, isExplicit: boolean, description?: string) => {
     if (!user) return;
-    await createPost(title, content, user.uid, user.email || `${user.uid}@example.com`);
+    await createPost(title, content, selectedTags, rating, isExplicit, description);
   };
 
   return (
@@ -32,9 +34,7 @@ export default function AddPostPage() {
 
         <div className="flex flex-col gap-2 mt-4 w-full max-w-[1000px]">
           {messages.map((msg, i) => (
-            <div key={i} className="bg-gray-100 p-2 rounded break-words text-red-500">
-              {msg}
-            </div>
+            <div key={i} className="bg-gray-100 p-2 rounded break-words text-red-500">{msg}</div>
           ))}
         </div>
       </div>
