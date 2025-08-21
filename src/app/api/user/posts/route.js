@@ -14,7 +14,7 @@ export async function POST(req) {
       );
     }
 
-    // 🛡️ Auth
+    // Auth
     const userAuth = await requireAuth(req);
     if (!userAuth) {
       return new Response(

@@ -10,6 +10,7 @@ export async function requireAuth(req) {
     const token = authHeader.split(" ")[1];
     const decoded = await admin.auth().verifyIdToken(token);
 
+
     return decoded;
   } catch (err) {
     console.error("Auth error:", err);
