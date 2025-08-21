@@ -1,8 +1,7 @@
-// src/app/pages/api/user/posts/[userId].js
-import prisma from '@/lib/prisma.js'
+import prisma from '@/lib/prisma.js';
 
 export async function GET(req, { params }) {
-  const { userId } = params; // ✅ dynamic route param
+  const { userId } = params;
 
   try {
     const posts = await prisma.post.findMany({

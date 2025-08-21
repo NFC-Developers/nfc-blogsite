@@ -55,7 +55,7 @@ export default function StoryCard(props: StoryCardProps) {
     async function fetchStoryDetails() {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/getPosts/${props.storyID}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/stories/${props.storyID}`
         );
         if (!res.ok) throw new Error("Failed to fetch story");
         const data = await res.json();
