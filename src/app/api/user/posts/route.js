@@ -1,6 +1,32 @@
-// src/app/api/user/posts/route.js
 import prisma from "@/lib/prisma";
 import { requireAuth } from "@/middlewares/auth";
+
+
+export async function GET(req) {
+  try {
+    const url = new URL(req.url);
+    const userId = url.searchParams.get("userId");
+
+    const posts = await prisma.post.findMany({
+      where: userId
+        ? { author: { firebaseUid: userId } }
+        : {}, 
+      include: { author: true, tags: true, comments: true },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return new Response(JSON.stringify(posts), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    return new Response(
+      JSON.stringify({ error: "Could not fetch posts", details: err.message }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
+}
 
 export async function POST(req) {
   try {
@@ -14,7 +40,6 @@ export async function POST(req) {
       );
     }
 
-    // Auth
     const userAuth = await requireAuth(req);
     if (!userAuth) {
       return new Response(
@@ -23,7 +48,6 @@ export async function POST(req) {
       );
     }
 
-    // 1️⃣ Ensure user exists
     let user = await prisma.user.findUnique({
       where: { firebaseUid: userAuth.uid },
       select: { id: true },
@@ -38,7 +62,6 @@ export async function POST(req) {
       });
     }
 
-    // 2️⃣ Handle tags + categories
     const tagsData = [];
     for (const t of tags || []) {
       const category = await prisma.tagCategory.upsert({
@@ -61,7 +84,6 @@ export async function POST(req) {
       });
     }
 
-    // 3️⃣ Create post
     const post = await prisma.post.create({
       data: {
         title,

@@ -1,8 +1,7 @@
-// /app/api/user/posts/[userId]/route.js
 import prisma from "@/lib/prisma";
 
 export async function GET(req, { params }) {
-  const userId = params.userId;
+  const userId = params.userId; 
 
   try {
     const posts = await prisma.post.findMany({
@@ -20,7 +19,7 @@ export async function GET(req, { params }) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching posts:", err);
     return new Response(JSON.stringify({ error: "Server error" }), { status: 500 });
   }
 }
