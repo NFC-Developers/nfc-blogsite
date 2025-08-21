@@ -1,36 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model User {
-  id          String   @id @default(cuid())
-  firebaseUid String?  @unique
-  email       String   @unique
+  id          String       @id @default(cuid())
+  firebaseUid String?      @unique
+  email       String       @unique
   name        String?
   description String?
-  role        Role     @default(USER)
+  role        Role         @default(USER)
   birthdate   DateTime?
-  posts       Post[]
-  comments    Comment[]
+  createdAt   DateTime     @default(now())
   blogs       Blog[]
+  comments    Comment[]
+  followers   Follower[]   @relation("followed")
+  following   Follower[]   @relation("following")
+  posts       Post[]
   starRatings StarRating[]
-  followers   Follower[] @relation("followed")
-  following   Follower[] @relation("following")
-  createdAt   DateTime  @default(now())
 }
 
 model Follower {
-  id         String @id @default(cuid())
-  follower   User   @relation("following", fields: [followerId], references: [id])
+  id         String   @id @default(cuid())
   followerId String
-  followed   User   @relation("followed", fields: [followedId], references: [id])
   followedId String
   createdAt  DateTime @default(now())
+  followed   User     @relation("followed", fields: [followedId], references: [id])
+  follower   User     @relation("following", fields: [followerId], references: [id])
 
   @@unique([followerId, followedId])
 }
@@ -40,65 +40,64 @@ model Blog {
   title       String
   description String?
   bannerUrl   String?
-  owner       User     @relation(fields: [ownerId], references: [id])
   ownerId     String
   createdAt   DateTime @default(now())
+  owner       User     @relation(fields: [ownerId], references: [id])
 }
 
 model Post {
-  id           String    @id @default(cuid())
+  id           String       @id @default(cuid())
   title        String
   description  String?
   content      String
-  author       User      @relation(fields: [authorId], references: [id])
   authorId     String
-  tags         Tag[]     @relation("PostTags")
-  comments     Comment[]
-  rating       Rating    @default(GENERAL)
+  rating       Rating       @default(GENERAL)
   isExplicit   Boolean?
-  commentCount Int       @default(0)
-  createdAt    DateTime  @default(now())
+  commentCount Int          @default(0)
+  createdAt    DateTime     @default(now())
+  views        Int          @default(0)
+  comments     Comment[]
+  author       User         @relation(fields: [authorId], references: [id])
   stars        StarRating[]
-  views        Int       @default(0)
+  tags         Tag[]        @relation("PostTags")
 }
 
 model StarRating {
-  id        String  @id @default(cuid())
-  user      User    @relation(fields: [userId], references: [id])
+  id        String   @id @default(cuid())
   userId    String
-  post      Post    @relation(fields: [postId], references: [id])
   postId    String
-  rating    Int     // 1-5 stars
+  rating    Int
   createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, postId])
 }
 
 model TagCategory {
-  id    String @id @default(cuid())
-  name  String @unique
-  tags  Tag[]
+  id   String @id @default(cuid())
+  name String @unique
+  tags Tag[]
 }
 
 model Tag {
-  id          String       @id @default(cuid())
-  name        String
-  category    TagCategory  @relation(fields: [categoryId], references: [id])
-  categoryId  String
-  posts       Post[]       @relation("PostTags")
+  id         String      @id @default(cuid())
+  name       String
+  categoryId String
+  category   TagCategory @relation(fields: [categoryId], references: [id])
+  posts      Post[]      @relation("PostTags")
 
-   @@unique([name, categoryId])
+  @@unique([name, categoryId])
 }
-
 
 model Comment {
   id        String   @id @default(cuid())
   content   String
-  post      Post     @relation(fields: [postId], references: [id])
   postId    String
-  author    User     @relation(fields: [authorId], references: [id])
   authorId  String
   createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
 }
 
 enum Role {
@@ -112,4 +111,3 @@ enum Rating {
   TEEN
   MATURE
 }
-
