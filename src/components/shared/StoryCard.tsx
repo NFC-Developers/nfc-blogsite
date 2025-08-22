@@ -9,25 +9,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { getRatingColor, getTagColor } from "@/hooks/useStoryCard";
-import type { Tag } from "@/types/story";
+import { getRatingColor, getTagColor, getWordCount } from "@/hooks/useStoryCard";
+import type { Story } from "@/types/story";
 import { InteractiveStarRating } from "./StarRating";
+import { Tag } from "@prisma/client";
 
-export interface StoryCardProps {
-  storyID: string;
-  title: string;
-  authorID: string;
-  tags: Tag[];
-  summary: string;
-  rating: string;
-  coverImg?: string;
-  words: number;
-  views: number;
-  stars: number;
-}
-
-function TagDisp({ name, type }: { name: string; type?: string }) {
-  const tagColor = getTagColor(type || "default");
+function TagDisp({ name, categoryId }: { name: string; categoryId?: string }) {
+  const tagColor = getTagColor(categoryId || "default");
   return (
     <Link
       href={`/tag/${encodeURIComponent(name)}`}
@@ -38,7 +26,7 @@ function TagDisp({ name, type }: { name: string; type?: string }) {
   );
 }
 
-export default function StoryCard(props: StoryCardProps) {
+export default function StoryCard(props: Story) {
   const [storyData, setStoryData] = useState<{
     authorName: string;
     createdAt: string;
@@ -55,7 +43,7 @@ export default function StoryCard(props: StoryCardProps) {
     async function fetchStoryDetails() {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/stories/${props.storyID}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/stories/${props.id}`
         );
         if (!res.ok) throw new Error("Failed to fetch story");
         const data = await res.json();
@@ -81,33 +69,34 @@ export default function StoryCard(props: StoryCardProps) {
     }
 
     fetchStoryDetails();
-  }, [props.storyID]);
+  }, [props.id]);
 
-  const wordCount = storyData?.content
-    ? storyData.content.trim().split(/\s+/).length
-    : 0;
+  const wordCount = getWordCount(props.content);
+
+  // don't delete this. it's needed to make line breaks appear
+  const description = props.description.split("\n").map((str,index)=><span key={index}>{str}<br/></span>);
 
   return (
-    <Card className="w-full">
+    <Card className={`w-full gap-1`}>
       <CardHeader>
         <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
           <div
-            className={`inline-block rounded-sm w-8 h-8 text-xl text-center leading-8 text-white ${getRatingColor(
+            className={`shrink-0 inline-block rounded-sm text-center text-white mr-3 w-8 h-8 leading-8 text-xl ${getRatingColor(
               storyData?.rating || props.rating
             )}`}
           >
-            {storyData?.rating || props.rating}
+            {(storyData?.rating || props.rating)[0]}
           </div>
           <Link
-            href={"/story/" + props.storyID}
-            className="ml-3 font-bold text-xl hover:underline"
+            href={"/story/" + props.id}
+            className="text-ellipsis font-bold hover:underline text-xl"
           >
             {storyData?.title || props.title}
           </Link>
-          <span className="ml-2 text-lg text-gray-500">
+          <span className="shrink-0 text-gray-500 ml-2 text-lg">
             by
             <Link
-              href={"/user/" + props.authorID}
+              href={"/user/" + props.author.firebaseUid}
               className="hover:underline ml-1"
             >
               {storyData?.authorName || "..."}
@@ -119,11 +108,11 @@ export default function StoryCard(props: StoryCardProps) {
       <CardContent>
         <div className="flex flex-wrap gap-1 mb-2">
           {storyData?.tags?.map((tag, i) => (
-            <TagDisp key={i} name={tag.name} type={tag.type} />
+            <TagDisp key={i} name={tag.name} categoryId={tag.categoryId} />
           ))}
         </div>
         <hr className="my-3" />
-        {storyData?.description}
+        {description}
       </CardContent>
 
       <CardFooter>

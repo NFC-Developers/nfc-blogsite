@@ -1,7 +1,4 @@
-export type Tag = {
-  name: string;
-  type: string;
-};
+import { Tag } from "./post";
 
 export type Author = {
   displayName: string;
@@ -19,7 +16,6 @@ export type Story = {
   isExplicit: boolean;
   author: Author;
   coverImg?: string;
-  words?: number;
   views?: number;
   stars?: number;
 };
@@ -27,3 +23,4 @@ export type Story = {
 export interface UserStoriesListProps {
   userId: string;
 }
+
