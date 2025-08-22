@@ -33,16 +33,7 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
           stories.map((story) => (
             <StoryCardComponent
               key={story.id}
-              storyID={story.id}
-              title={story.title}
-              authorID={story.author.firebaseUid}
-              tags={story.tags.map((tag) => ({ name: tag.name, type: tag.type }))}
-              summary={story.description || story.content}
-              rating={story.rating}
-              coverImg={story.coverImg || ""}
-              words={story.words || story.content.split(" ").length}
-              views={story.views || 0}
-              stars={story.stars || 0}
+              {...story}
             />
           ))
         ) : (

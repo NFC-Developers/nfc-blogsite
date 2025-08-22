@@ -1,0 +1,17 @@
+import { Story } from "@/types/story";
+import StoryCard from "./StoryCard";
+
+export function StoryList({ title, stories }: { title: string, stories: Story[] }) {
+  const content = stories.map((story,index) =>
+    <div key={index} className="mt-3">
+        <StoryCard {...story}/>
+    </div>
+  );
+  return (
+    <div className="flex-1">
+        <div className="w-full bg-gray-500 rounded-md pl-4 py-2 text-xl text-white">{title}</div>
+        {content}
+    </div>
+  );
+}
+
