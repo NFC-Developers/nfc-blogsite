@@ -1,10 +1,10 @@
 import { Story } from "@/types/story";
 import StoryCard from "./StoryCard";
 
-export function StoryList({ title, stories, large }: { title: string, stories: Story[], large?: boolean }) {
+export function StoryList({ title, stories }: { title: string, stories: Story[] }) {
   const content = stories.map((story,index) =>
     <div key={index} className="mt-3">
-        <StoryCard large={large} {...story}/>
+        <StoryCard {...story}/>
     </div>
   );
   return (

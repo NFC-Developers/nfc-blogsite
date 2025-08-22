@@ -14,9 +14,9 @@ export default function HomePage() {
 
       <main className="flex-1 p-8 sm:p-20 flex flex-col gap-8">
         <Announcement stories={getTop()}/>
-        <div className="flex gap-4">
-          <StoryList large={false} title="New Stories" stories={getNewest()} />
-          <StoryList large={false} title="Latest Updates" stories={getLatestUpdate()} />
+        <div className="flex gap-4 sm:flex-row flex-col">
+          <StoryList title="New Stories" stories={getNewest()} />
+          <StoryList title="Latest Updates" stories={getLatestUpdate()} />
         </div>
       </main>
     </div>

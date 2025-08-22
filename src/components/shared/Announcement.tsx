@@ -21,7 +21,7 @@ export function Announcement({ stories }: { stories: Story[] }) {
     </TabsContent>
   );
   return (
-    <Tabs orientation="vertical" defaultValue={"0"} className="flex-row">
+    <Tabs orientation="vertical" defaultValue={"0"} className="hidden sm:flex flex-row">
       <TabsList className="flex-col h-fit w-[200px]">
         {triggers}
       </TabsList>

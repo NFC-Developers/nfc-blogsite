@@ -26,7 +26,7 @@ function TagDisp({ name, categoryId }: { name: string; categoryId?: string }) {
   );
 }
 
-export default function StoryCard(props: Story & {large?: boolean}) {
+export default function StoryCard(props: Story) {
   const [storyData, setStoryData] = useState<{
     authorName: string;
     createdAt: string;
@@ -73,16 +73,15 @@ export default function StoryCard(props: Story & {large?: boolean}) {
 
   const wordCount = getWordCount(props.content);
 
-  const isLarge = props.large ?? true;
   // don't delete this. it's needed to make line breaks appear
   const description = props.description.split("\n").map((str,index)=><span key={index}>{str}<br/></span>);
 
   return (
-    <Card className={`w-full gap-1 ${isLarge ? "" : "text-sm"}`}>
+    <Card className={`w-full gap-1`}>
       <CardHeader>
         <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
           <div
-            className={`inline-block rounded-sm text-center text-white ${isLarge ? "w-8 h-8 leading-8 text-xl" : "w-7 h-7 leading-7 text-lg"} ${getRatingColor(
+            className={`shrink-0 inline-block rounded-sm text-center text-white mr-3 w-8 h-8 leading-8 text-xl ${getRatingColor(
               storyData?.rating || props.rating
             )}`}
           >
@@ -90,11 +89,11 @@ export default function StoryCard(props: Story & {large?: boolean}) {
           </div>
           <Link
             href={"/story/" + props.id}
-            className={`font-bold hover:underline ${isLarge ? "ml-3 text-xl" : "ml-2 text-lg"}`}
+            className="text-ellipsis font-bold hover:underline text-xl"
           >
             {storyData?.title || props.title}
           </Link>
-          <span className={`text-gray-500 ${isLarge ? "ml-2 text-lg" : "ml-1 text-base"}`}>
+          <span className="shrink-0 text-gray-500 ml-2 text-lg">
             by
             <Link
               href={"/user/" + props.author.firebaseUid}
