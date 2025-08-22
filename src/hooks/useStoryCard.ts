@@ -1,16 +1,18 @@
 export function getRatingColor(rating: string): string {
   switch (rating) {
-    case "E":
+    case "GENERAL":
       return "bg-green-500";
-    case "T":
+    case "TEEN":
       return "bg-yellow-500";
-    case "M":
+    case "MATURE":
       return "bg-red-500";
   }
   return "";
 }
 
-export function getTagColor(tagType: string): string {
+export function getTagColor(categoryId: string): string {
+  // Placeholder. Would need to use the id to find the color, but currently, color is not stored in the databse.
+  const tagType = categoryId;
   switch (tagType) {
     case "fandom":
       return "bg-purple-600";
@@ -20,8 +22,7 @@ export function getTagColor(tagType: string): string {
       return "bg-blue-600";
     case "character":
       return "bg-green-600";
-    case "other":
+    default:
       return "bg-gray-600";
   }
-  return "";
 }

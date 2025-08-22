@@ -1,7 +1,4 @@
-export type Tag = {
-  name: string;
-  type: string;
-};
+import { Tag } from "./post";
 
 export type Author = {
   displayName: string;
@@ -27,3 +24,4 @@ export type Story = {
 export interface UserStoriesListProps {
   userId: string;
 }
+

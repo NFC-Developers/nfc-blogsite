@@ -10,10 +10,10 @@ export function usePosts() {
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch(`${BACKEND_URL}/posts`);
+      const res = await fetch(`${BACKEND_URL}/user/posts`);
       if (!res.ok) throw new Error(res.statusText);
       const data: Post[] = await res.json();
-      setMessages(data.map(p => `${p.id}: ${p.title} by ${p.authorId}`));
+      setMessages(data.map(p => JSON.stringify(p)));
     } catch (err: unknown) {
       setMessages([`Error fetching: ${err instanceof Error ? err.message : "Unknown error"}`]);
     }

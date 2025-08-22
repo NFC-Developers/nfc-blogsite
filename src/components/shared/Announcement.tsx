@@ -4,24 +4,24 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { StoryCard } from "./StoryCard";
-import { StoryCardProps } from "@/types/story";
+import StoryCard from "./StoryCard";
+import { Story } from "@/types/story";
 
-export function Announcement({ stories }: { stories: StoryCardProps[] }) {
-  const triggers = stories.map(story =>
+export function Announcement({ stories }: { stories: Story[] }) {
+  const triggers = stories.map((story,index) =>
     <TabsTrigger 
-      key={story.storyID}
-      value={story.storyID.toString()}
+      key={index}
+      value={index.toString()}
       className="inline-block w-full truncate"
     >{story.title}</TabsTrigger>
   );
-  const contents = stories.map(story =>
-    <TabsContent key={story.storyID} value={story.storyID.toString()}>
-      <StoryCard large={true} {...story}/>
+  const contents = stories.map((story,index) =>
+    <TabsContent key={index} value={index.toString()}>
+      <StoryCard {...story}/>
     </TabsContent>
   );
   return (
-    <Tabs orientation="vertical" defaultValue={stories[0].storyID.toString()} className="flex-row">
+    <Tabs orientation="vertical" defaultValue={"0"} className="flex-row">
       <TabsList className="flex-col h-fit w-[200px]">
         {triggers}
       </TabsList>
