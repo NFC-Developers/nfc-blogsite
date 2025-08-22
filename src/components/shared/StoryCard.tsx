@@ -26,7 +26,7 @@ function TagDisp({ name, categoryId }: { name: string; categoryId?: string }) {
   );
 }
 
-export default function StoryCard(props: Story) {
+export default function StoryCard(props: Story & {fetchData: boolean|undefined}) {
   const [storyData, setStoryData] = useState<{
     authorName: string;
     createdAt: string;
@@ -68,8 +68,8 @@ export default function StoryCard(props: Story) {
       }
     }
 
-    fetchStoryDetails();
-  }, [props.id]);
+    if (props.fetchData || props.fetchData === undefined) fetchStoryDetails();
+  }, [props.fetchData, props.id]);
 
   const wordCount = getWordCount(props.content);
 
