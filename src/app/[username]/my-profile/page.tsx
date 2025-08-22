@@ -47,17 +47,16 @@ export default function MemberPage() {
           isOnline={true}
           memberSince={user.metadata.creationTime || "Unknown"}
         >
-          <div className="space-y-4 text-white">
-            <Button
-              asChild
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              <Link href={`/${username}/post`}>Add a Post</Link>
-            </Button>
-          </div>
         </Profile>
-
-        {/* Pass userId to fetch user-specific posts */}
+        <div className="space-y-4 text-white px-4 py-6">
+        <Button
+          asChild
+          className="bg-blue-600 hover:bg-blue-700 text-white"
+        >
+          <Link href={`/${username}/post`}>Add a Post</Link>
+        </Button>
+      </div>
+        
         <UserStoriesList userId={user.uid} />
       </div>
     </>

@@ -8,7 +8,7 @@ import StoryStats from "@/components/story/StoryStats";
 import StoryContent from "@/components/story/StoryContent";
 import StoryNavigation from "@/components/story/StoryNavigation";
 import { useParams } from "next/navigation";
-
+import Navbar from "@/components/shared/NavigationBar";
 export default function StoryViewPage() {
   const { id } = useParams(); 
   const [story, setStory] = useState<any>(null);
@@ -33,10 +33,12 @@ export default function StoryViewPage() {
   }, [id]);
 
   if (loading) return <p className="text-center py-10">Loading story...</p>;
-  if (!story) return <p className="text-center py-10">Story not found.</p>;
+  // if (!story) return <p className="text-center py-10">Story not found.</p>;
 
   return (
-    <div className="container max-w-4xl py-6">
+    <>
+    <Navbar/>
+    <div className="container w-full py-6">
       <Card className="shadow-lg rounded-2xl">
         <CardHeader>
           <StoryHeader story={story} />
@@ -48,5 +50,6 @@ export default function StoryViewPage() {
         </CardContent>
       </Card>
     </div>
+  </>
   );
 }
