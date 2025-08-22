@@ -63,7 +63,7 @@ export default function Profile({
           alt="Profile Picture"
           width={150}
           height={150}
-          className="inline-block rounded-full border-4 border-indigo-500 shadow-lg"
+          className="inline-block border-4 border border-gray-700 shadow-lg"
         />
         <div className="flex-1">
           <h2 className="text-3xl font-bold text-white">{name}</h2>
