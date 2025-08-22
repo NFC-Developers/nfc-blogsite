@@ -14,7 +14,7 @@ export default function HomePage() {
       <Navbar />
 
       <main className="flex-1 p-8 sm:p-20 flex flex-col gap-8">
-        {loading ? <div className="text-2xl font-bold flex flex-col items-center">
+        {loading ? <div className="text-2xl font-bold flex flex-col items-center gap-4">
           Loading... Hold on
           <Image alt="nwero" src="/images/nwero.png" width={100} height={100}/>
         </div> :
