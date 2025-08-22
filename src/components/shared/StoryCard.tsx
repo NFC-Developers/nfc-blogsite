@@ -26,7 +26,7 @@ function TagDisp({ name, categoryId }: { name: string; categoryId?: string }) {
   );
 }
 
-export default function StoryCard(props: Story & {fetchData: boolean|undefined}) {
+export default function StoryCard(props: Story & {fetchData?: boolean}) {
   const [storyData, setStoryData] = useState<{
     authorName: string;
     createdAt: string;
