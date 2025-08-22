@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { getRatingColor, getTagColor } from "@/hooks/useStoryCard";
+import { getRatingColor, getTagColor, getWordCount } from "@/hooks/useStoryCard";
 import type { Story } from "@/types/story";
 import { InteractiveStarRating } from "./StarRating";
 import { Tag } from "@prisma/client";
@@ -71,11 +71,11 @@ export default function StoryCard(props: Story & {large?: boolean}) {
     fetchStoryDetails();
   }, [props.id]);
 
-  const wordCount = storyData?.content
-    ? storyData.content.trim().split(/\s+/).length
-    : 0;
+  const wordCount = getWordCount(props.content);
 
   const isLarge = props.large ?? true;
+  // don't delete this. it's needed to make line breaks appear
+  const description = props.description.split("\n").map((str,index)=><span key={index}>{str}<br/></span>);
 
   return (
     <Card className={`w-full gap-1 ${isLarge ? "" : "text-sm"}`}>
@@ -113,7 +113,7 @@ export default function StoryCard(props: Story & {large?: boolean}) {
           ))}
         </div>
         <hr className="my-3" />
-        {storyData?.description}
+        {description}
       </CardContent>
 
       <CardFooter>

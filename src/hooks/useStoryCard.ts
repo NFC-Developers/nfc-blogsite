@@ -26,3 +26,32 @@ export function getTagColor(categoryId: string): string {
       return "bg-gray-600";
   }
 }
+
+// there were a bunch of edge cases with the simple split() word count, so I made this
+export function getWordCount(str: string|undefined) {
+  if (!str) return 0;
+  let count = 0;
+  let depth = 0;
+  let prevSpace = true;
+  let space = false;
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    space = false;
+    switch (true) {
+      case (char === "<"):
+        space = true;
+        depth++;
+        break;
+      case (char === ">" && depth > 0):
+        space = true;
+        depth--;
+        break;
+      case (depth !== 0 || /\s/.test(char)):
+        space = true;
+        break;
+    }
+    if (!space && prevSpace) count++
+    prevSpace = space;
+  }
+  return count;
+}

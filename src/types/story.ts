@@ -16,7 +16,6 @@ export type Story = {
   isExplicit: boolean;
   author: Author;
   coverImg?: string;
-  words?: number;
   views?: number;
   stars?: number;
 };
