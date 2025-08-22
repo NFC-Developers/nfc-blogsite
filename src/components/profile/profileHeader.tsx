@@ -1,7 +1,16 @@
 "use client";
 
 import React from "react";
-import { UserCheck, UserX } from "lucide-react";
+import {
+  UserCheck,
+  UserX,
+  Book,
+  User,
+  Mail,
+  AlertTriangle,
+  FileText,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 
 interface ProfileProps {
@@ -10,6 +19,12 @@ interface ProfileProps {
   description: string;
   isOnline: boolean;
   memberSince: string;
+  stats?: {
+    stories?: number;
+    blogs?: number;
+    followers?: number;
+    following?: number;
+  };
   children?: React.ReactNode;
 }
 
@@ -19,23 +34,43 @@ export default function Profile({
   description,
   isOnline,
   memberSince,
+  stats = {},
   children,
 }: ProfileProps) {
+  const {
+    stories = 0,
+    blogs = 0,
+    followers = 0,
+    following = 0,
+  } = stats;
+
+  const menuItems = [
+    { label: "Stories", value: stories, icon: <FileText className="w-4 h-4" /> },
+    { label: "Blogs", value: blogs, icon: <Book className="w-4 h-4" /> },
+    { label: "Followers", value: followers, icon: <Users className="w-4 h-4" /> },
+    { label: "Following", value: following, icon: <User className="w-4 h-4" /> },
+    { label: "Library", icon: <Book className="w-4 h-4" /> },
+    { label: "About", icon: <User className="w-4 h-4" /> },
+    { label: "Mail", icon: <Mail className="w-4 h-4" /> },
+    { label: "Report", icon: <AlertTriangle className="w-4 h-4 text-orange-500" /> },
+  ];
+
   return (
-    <div className="w-full mx-auto bg-gray-700 shadow-lg overflow-hidden">
+    <div className="relative w-full mx-auto bg-gray-700 shadow-xl overflow-hidden">
       <div className="flex items-center gap-10 p-6 bg-gray-800">
         <Image
           src="/images/profile-placeholder.jpg"
           alt="Profile Picture"
           width={150}
           height={150}
-          className="inline-block"
+          className="inline-block border-4 border border-gray-700 shadow-lg"
         />
         <div className="flex-1">
-          <h2 className="text-2xl font-bold text-white">{name}</h2>
-          <p className="text-indigo-200">@{username}</p>
-          <p className="mt-1 text-indigo-100">{description}</p>
-          <div className="flex items-center gap-3 mt-2 text-sm text-indigo-200">
+          <h2 className="text-3xl font-bold text-white">{name}</h2>
+          <p className="text-indigo-400 text-lg">@{username}</p>
+          <p className="mt-1 text-indigo-200 italic">{description}</p>
+
+          <div className="flex items-center gap-4 mt-3 text-sm text-indigo-100">
             <span className="flex items-center gap-1">
               {isOnline ? (
                 <UserCheck className="w-4 h-4 text-green-400" />
@@ -44,11 +79,29 @@ export default function Profile({
               )}
               {isOnline ? "Online" : "Offline"}
             </span>
-            <span>Member since {memberSince}</span>
+            <span className="text-gray-400">| Member since {memberSince}</span>
           </div>
         </div>
       </div>
+
       <div className="p-6 text-indigo-100">{children}</div>
+
+      <div className="absolute bottom-0 right-0 left-0 bg-gray-800/80 backdrop-blur-sm flex divide-x divide-gray-700">
+        {menuItems.map((item, index) => (
+          <div
+            key={index}
+            className="p-4 flex-1 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-700 transition-all duration-200 group"
+          >
+            {item.value !== undefined && (
+              <div className="text-xl font-bold text-white">{item.value}</div>
+            )}
+            <div className="flex items-center gap-2 text-sm text-indigo-300 group-hover:text-white">
+              {item.icon}
+              <span>{item.label}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

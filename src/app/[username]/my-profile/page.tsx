@@ -48,11 +48,6 @@ export default function MemberPage() {
           memberSince={user.metadata.creationTime || "Unknown"}
         >
           <div className="space-y-4 text-white">
-            <p>
-              This is the profile body where you can add posts, bio, or other
-              user info.
-            </p>
-            <p>Additional info or user stats can go here.</p>
             <Button
               asChild
               className="bg-blue-600 hover:bg-blue-700 text-white"
