@@ -77,7 +77,7 @@ export default function BlogCard(props: BlogCardProp & { fetchData?: boolean }) 
           <div className="flex items-center gap-2">
             <Link
               href={"/user/" + props.author.firebaseUid}
-              className="hover:underline"
+              className="hover:underline font-bold"
             >
               {blogCardData?.author.displayName || props.author.displayName || "..."}
             </Link> • {blogCardData?.views || props.views} views
