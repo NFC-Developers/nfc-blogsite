@@ -4,7 +4,7 @@ import StoryCard from "./StoryCard";
 export function StoryList({ title, stories }: { title: string, stories: Story[] }) {
   const content = stories.map((story,index) =>
     <div key={index} className="mt-3">
-        <StoryCard {...story}/>
+        <StoryCard fetchData={false} {...story}/>
     </div>
   );
   return (
