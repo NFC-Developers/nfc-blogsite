@@ -1,11 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePosts } from "./usePosts";
 
 export function useHome() {
     const { messages, fetchPosts } = usePosts();
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
-        if (messages.length === 0) fetchPosts()
+        if (messages.length === 0) {
+            fetchPosts().then(()=>{
+                setLoading(false);
+            });
+        }
     },[fetchPosts, messages.length]);
 
     const allStories = messages.map(str=>JSON.parse(str));
@@ -28,5 +33,5 @@ export function useHome() {
         return getNewest();
     }
 
-    return { getTop, getNewest, getLatestUpdate };
+    return { getTop, getNewest, getLatestUpdate, loading };
 }

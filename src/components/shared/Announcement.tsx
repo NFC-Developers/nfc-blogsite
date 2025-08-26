@@ -17,7 +17,7 @@ export function Announcement({ stories }: { stories: Story[] }) {
   );
   const contents = stories.map((story,index) =>
     <TabsContent key={index} value={index.toString()}>
-      <StoryCard {...story}/>
+      <StoryCard fetchData={false} {...story}/>
     </TabsContent>
   );
   return (
