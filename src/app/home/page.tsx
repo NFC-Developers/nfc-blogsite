@@ -1,7 +1,6 @@
 "use client";
 
 import { Announcement } from "@/components/shared/Announcement";
-import BlogCard from "@/components/shared/BlogCard";
 import Navbar from "@/components/shared/NavigationBar";
 import { StoryList } from "@/components/shared/StoryList";
 import { useHome } from "@/hooks/useHome";
