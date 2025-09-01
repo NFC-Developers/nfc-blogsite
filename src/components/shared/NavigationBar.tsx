@@ -1,15 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   Search,
   Users,
   Settings,
   HelpCircle,
-  UserPlus,
-  LogIn,
   User,
   LogOut,
 } from "lucide-react";
@@ -28,88 +25,58 @@ export default function Navbar() {
   const { user, loading, handleLogout } = useAuthForm();
   return (
     <header className="w-full">
-      {/* Top Navbar */}
-      <div className="w-full bg-gray-900 text-gray-200">
-        <div className="mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-2 sm:px-6 max-w-7xl">
+      {/* Top Navigation - Dark Theme */}
+      <div className="w-full bg-gray-800 text-gray-200">
+        <div className="mx-auto flex items-center justify-between px-4 py-2 max-w-7xl">
           {/* Logo and Browse */}
-          <div className="flex items-center gap-4 flex-shrink-0">
-            <Link href="/home" className="flex items-center">
+          <div className="flex items-center gap-4">
+            <Link href="/home" className="flex items-center gap-2">
               <Image
-                src = "/images/profile-placeholder.jpg"
-                alt="LOGO"
-                width={20} 
-                height={20} 
-                className="inline-block"
+                src="/images/profile-placeholder.jpg"
+                alt="Fiction Site"
+                width={40} 
+                height={40} 
+                className="rounded-full"
               />
+              <span className="text-xl font-bold text-white hidden sm:block">FictionSite</span>
             </Link>
             <BrowseDialog />
           </div>
 
           {/* Search Bar */}
-          <div className="flex flex-1 min-w-[150px] max-w-full items-center rounded bg-gray-800 overflow-hidden">
-            <select className="bg-gray-800 py-2 px-2 text-gray-300 outline-none border-r border-gray-700">
-              <option>Stories</option>
-              <option>Users</option>
-              <option>Groups</option>
-            </select>
-            <Input
-              type="text"
-              placeholder="Search..."
-              className="flex-1 border-0 bg-gray-800 text-gray-200 placeholder-gray-400 focus-visible:ring-0 px-3 py-2 min-w-[100px]"
-            />
-            <button className="px-3 text-gray-300 hover:text-white">
-              <Search size={18} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Menu */}
-      <div className="w-full bg-blue-800 text-gray-200">
-        <div className="mx-auto flex items-center justify-between px-4 py-2 max-w-7xl flex-nowrap">
-          {/* Left links */}
-          <div className="flex items-center gap-2 flex-1 min-w-0">
-            <Link
-              href="/groups"
-              className="flex items-center gap-1 text-[12px] sm:text-sm"
-            >
-              <Users size={14} /> Groups
-            </Link>
-            <Link
-              href="/settings"
-              className="flex items-center gap-1 text-[12px] sm:text-sm"
-            >
-              <Settings size={14} /> Settings
-            </Link>
-            <Link
-              href="/help"
-              className="flex items-center gap-1 text-[12px] sm:text-sm"
-            >
-              <HelpCircle size={14} /> Help
-            </Link>
+          <div className="flex flex-1 max-w-lg items-center mx-4">
+            <div className="flex w-full bg-white border border-gray-300 rounded-md overflow-hidden shadow-sm">
+              <select className="bg-white text-gray-700 px-3 py-2 text-sm border-r border-gray-300 outline-none focus:bg-gray-50">
+                <option>Stories</option>
+                <option>Users</option>
+                <option>Groups</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Search stories, users, or groups..."
+                className="flex-1 px-3 py-2 text-gray-900 placeholder-gray-500 border-0 outline-none focus:ring-0"
+              />
+              <button className="bg-gray-600 hover:bg-gray-700 px-4 py-2 text-white transition-colors">
+                <Search size={16} />
+              </button>
+            </div>
           </div>
 
-          {/* Right buttons */}
-          <div className="flex items-center gap-1 flex-shrink-0 ml-2">
+          {/* User Actions */}
+          <div className="flex items-center gap-3 text-sm">
             {loading ? (
-              // Skeleton while Firebase is checking
-              <div className="w-24 h-8 bg-gray-300 animate-pulse rounded-full" />
+              <div className="w-20 h-8 bg-gray-700 animate-pulse rounded" />
             ) : user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="flex items-center gap-2 border-gray-600 text-gray-800 bg-white hover:bg-gray-100"
-                  >
-                    <User size={16} />
+                  <Button variant="ghost" className="text-gray-200 hover:text-white hover:bg-gray-700">
+                    <User size={16} className="mr-2" />
                     {user.displayName || user.email}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem asChild>
-                    <Link
-                      href={`/${user.displayName || user.email}/my-profile`}
-                    >
+                    <Link href={`/${user.displayName || user.email}/my-profile`}>
                       My Profile
                     </Link>
                   </DropdownMenuItem>
@@ -119,37 +86,48 @@ export default function Navbar() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={handleLogout}
-                    className="text-red-600"
-                  >
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-600">
                     <LogOut className="mr-2 h-4 w-4" /> Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="border-gray-600 text-gray-800 hover:bg-blue-50 px-1.5 py-0.5 text-[11px] sm:px-3 sm:py-1.5 sm:text-sm"
+                <Link 
+                  href="/login" 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-1 rounded transition-colors"
                 >
-                  <Link href="/login" className="flex items-center gap-1">
-                    <LogIn size={14} /> Login
-                  </Link>
-                </Button>
-
-                <Button
-                  asChild
-                  className="bg-green-600 text-white hover:bg-blue-700 px-1.5 py-0.5 text-[11px] sm:px-3 sm:py-1.5 sm:text-sm"
+                  LOGIN
+                </Link>
+                <Link 
+                  href="/register" 
+                  className="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-1 rounded transition-colors"
                 >
-                  <Link href="/register" className="flex items-center gap-1">
-                    <UserPlus size={14} /> Register
-                  </Link>
-                </Button>
+                  SIGN UP
+                </Link>
               </>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Bottom Navigation - Blue Theme */}
+      <div className="w-full bg-blue-600 text-white">
+        <div className="mx-auto flex items-center justify-between px-4 py-2 max-w-7xl">
+          <nav className="flex items-center gap-6 text-sm">
+            <Link href="/groups" className="flex items-center gap-1 hover:text-blue-200">
+              <Users size={14} /> GROUPS
+            </Link>
+            <Link href="/settings" className="flex items-center gap-1 hover:text-blue-200">
+              <Settings size={14} /> SETTINGS
+            </Link>
+            <Link href="/help" className="flex items-center gap-1 hover:text-blue-200">
+              <HelpCircle size={14} /> HELP
+            </Link>
+            <Link href="/chat" className="flex items-center gap-1 hover:text-blue-200">
+              CHAT
+            </Link>
+          </nav>
         </div>
       </div>
     </header>

@@ -77,56 +77,84 @@ export default function StoryCard(props: Story & {fetchData?: boolean}) {
   const description = props.description.split("\n").map((str,index)=><span key={index}>{str}<br/></span>);
 
   return (
-    <Card className={`w-full gap-1`}>
-      <CardHeader>
-        <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-          <div
-            className={`shrink-0 inline-block rounded-sm text-center text-white mr-3 w-8 h-8 leading-8 text-xl ${getRatingColor(
-              storyData?.rating || props.rating
-            )}`}
-          >
-            {(storyData?.rating || props.rating)[0]}
+    <Card className="w-full border border-gray-200 hover:shadow-md transition-shadow">
+      <CardContent className="p-4">
+        <div className="flex gap-3">
+          {/* Story Thumbnail/Cover */}
+          <div className="flex-shrink-0">
+            {props.coverImg ? (
+              <img 
+                src={props.coverImg} 
+                alt={storyData?.title || props.title}
+                className="w-16 h-20 object-cover rounded border border-gray-300"
+              />
+            ) : (
+              <div className="w-16 h-20 bg-gray-200 rounded border border-gray-300 flex items-center justify-center">
+                <span className="text-gray-400 text-xs">No Image</span>
+              </div>
+            )}
           </div>
-          <Link
-            href={"/story/" + props.id}
-            className="text-ellipsis font-bold hover:underline text-xl"
-          >
-            {storyData?.title || props.title}
-          </Link>
-          <span className="shrink-0 text-gray-500 ml-2 text-lg">
-            by
-            <Link
-              href={"/user/" + props.author.firebaseUid}
-              className="hover:underline ml-1"
-            >
-              {storyData?.authorName || "..."}
-            </Link>
-          </span>
-        </CardTitle>
-      </CardHeader>
 
-      <CardContent>
-        <div className="flex flex-wrap gap-1 mb-2">
-          {storyData?.tags?.map((tag, i) => (
-            <TagDisp key={i} name={tag.name} categoryId={tag.categoryId} />
-          ))}
+          {/* Story Content */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start gap-2 mb-2">
+              <div
+                className={`flex-shrink-0 inline-block rounded text-center text-white w-6 h-6 leading-6 text-sm font-bold ${getRatingColor(
+                  storyData?.rating || props.rating
+                )}`}
+              >
+                {(storyData?.rating || props.rating)[0]}
+              </div>
+              <div className="flex-1 min-w-0">
+                <Link
+                  href={"/story/" + props.id}
+                  className="font-semibold hover:underline text-red-600 block truncate"
+                >
+                  {storyData?.title || props.title}
+                </Link>
+                <p className="text-sm text-gray-600">
+                  by{" "}
+                  <Link
+                    href={"/user/" + props.author.firebaseUid}
+                    className="hover:underline text-red-600"
+                  >
+                    {storyData?.authorName || props.author.displayName || "Unknown"}
+                  </Link>
+                </p>
+              </div>
+            </div>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-1 mb-2">
+              {storyData?.tags?.slice(0, 4).map((tag, i) => (
+                <TagDisp key={i} name={tag.name} categoryId={tag.categoryId} />
+              ))}
+              {(storyData?.tags?.length || 0) > 4 && (
+                <span className="text-xs text-gray-500">+{(storyData?.tags?.length || 0) - 4} more</span>
+              )}
+            </div>
+
+            {/* Description */}
+            <div className="text-sm text-gray-700 mb-3 line-clamp-2">
+              {description}
+            </div>
+
+            {/* Stats */}
+            <div className="text-xs text-gray-500 flex items-center gap-3">
+              <span>{wordCount} words</span>
+              <span>•</span>
+              <span>{storyData?.views || 0} views</span>
+              <span>•</span>
+              <div className="flex items-center gap-1">
+                <InteractiveStarRating rating={storyData?.stars || 0} />
+                <span>{storyData?.stars || 0}</span>
+              </div>
+              <span>•</span>
+              <span>{storyData?.createdAt}</span>
+            </div>
+          </div>
         </div>
-        <hr className="my-3" />
-        {description}
       </CardContent>
-
-      <CardFooter>
-        <div className="rounded-sm bg-gray-100 w-full p-2 text-sm text-gray-800 flex flex-col gap-1">
-          <div className="flex items-center gap-2">
-            {wordCount} words • {storyData?.views} views •{" "}
-            <InteractiveStarRating rating={storyData?.stars || 0} />
-            <span>{storyData?.stars}</span> stars
-          </div>
-          <div className="text-gray-500 text-xs">
-            Created: {storyData?.createdAt}
-          </div>
-        </div>
-      </CardFooter>
     </Card>
   );
 }
