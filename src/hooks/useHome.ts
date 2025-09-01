@@ -13,7 +13,16 @@ export function useHome() {
         }
     },[fetchPosts, messages.length]);
 
-    const allStories = messages.map(str=>JSON.parse(str));
+    // Parse only valid JSON messages. Some entries in `messages` may be error strings
+    // like "Error fetch..." which would throw on JSON.parse — filter those out.
+    const allStories = messages.flatMap(str => {
+        try {
+            return [JSON.parse(str)];
+        } catch (e) {
+            // ignore invalid JSON
+            return [];
+        }
+    });
 
     function strCompare(str1: string, str2: string) {
         if (str1 < str2) return -1;
