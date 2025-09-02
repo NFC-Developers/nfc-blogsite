@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "postinstall": "prisma generate",
-  "lint": "next lint",
-  "tailwind:init": "tailwindcss init -p"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "postinstall": "prisma generate",
+    "lint": "next lint",
+    "tailwind:init": "tailwindcss init -p"
   },
   "dependencies": {
     "@prisma/client": "^6.14.0",
@@ -31,7 +31,7 @@
     "firebase": "^12.1.0",
     "firebase-admin": "^13.4.0",
     "lucide-react": "^0.539.0",
-    "next": "15.4.6",
+    "next": "^15.5.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.1",

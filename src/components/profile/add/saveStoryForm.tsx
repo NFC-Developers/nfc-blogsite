@@ -4,15 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import TagSelector from "@/components/profile/tagSelector";
 import { PostFormProps } from "@/types/post";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { Button, Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui";
 import RichTextEditor from "@/components/rich-text-editor";
 
 export default function PostForm({ onSubmit }: PostFormProps) {

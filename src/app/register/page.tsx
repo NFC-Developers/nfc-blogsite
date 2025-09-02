@@ -1,6 +1,6 @@
-import ImprovedAuthForm from "@/components/auth/ImprovedAuthForm";
+import AuthForm from "@/components/auth/AuthForm";
 
 
 export default function RegisterPage() {
-  return  <ImprovedAuthForm mode="register" />;
+  return  <AuthForm mode="register" />;
 }

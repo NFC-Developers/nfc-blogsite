@@ -1,5 +1,7 @@
-import ImprovedAuthForm from "@/components/auth/ImprovedAuthForm";
+"use client";
+
+import AuthForm from "@/components/auth/AuthForm";
 
 export default function LoginPage() {
-  return <ImprovedAuthForm mode="login" />;
+  return <AuthForm mode="login" />;
 }

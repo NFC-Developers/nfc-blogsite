@@ -1,16 +1,7 @@
 "use client";
 
-import {
-  Command,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-} from "@/components/ui/command";
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, Button, Switch } from "@/components/ui";
 import { Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { TagSelectorProps, Rating } from "@/types/post";
 
 const categoryColors: Record<string, string> = {

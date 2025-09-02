@@ -118,5 +118,18 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Use the Inter variable font provided in the root layout */
+    font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    /* Fluid type ramp */
+    font-size: clamp(14px, 1.2vw + 12px, 18px);
+    line-height: 1.5;
   }
+
+  /* Tame headings for a modern look */
+  h1 { font-size: clamp(1.6rem, 1.8vw + 0.6rem, 2.75rem); line-height: 1.05; font-weight: 700; }
+  h2 { font-size: clamp(1.25rem, 1.6vw + 0.4rem, 1.75rem); font-weight: 700; }
+  h3 { font-size: clamp(1.05rem, 1.2vw + 0.2rem, 1.25rem); font-weight: 600; }
+
+  /* Sticky backdrop-friendly header support */
+  header { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 }

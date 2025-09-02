@@ -1,27 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, Heart, HelpCircle } from "lucide-react";
 import {
+  Button,
   Dialog,
   DialogContent,
+  DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
   SheetClose,
-} from "@/components/ui/sheet";
-import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/ui/accordion";
+} from "@/components/ui";
+import { ChevronDown, Heart, HelpCircle } from "lucide-react";
 
 const GENRES = [
   "Romance","Adventure","Drama","Mystery","Sad","Slice of Life","Tragedy",
@@ -137,6 +134,7 @@ export default function BrowseDialog() {
           </DialogTrigger>
 
           <DialogContent className="!max-w-3xl w-[90vw] bg-gray-900 text-gray-200 border border-gray-700 shadow-xl rounded-xl p-8">
+            <DialogTitle className="text-2xl font-semibold mb-4">Browse</DialogTitle>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               <div>
                 <h3 className="mb-3 border-b border-gray-700 pb-1 text-lg font-semibold text-blue-400">Genres</h3>

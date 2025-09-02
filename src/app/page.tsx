@@ -1,16 +1,22 @@
 "use client";
 
-import Navbar from "@/components/shared/NavigationBar"; 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Redirect to the home page immediately
+    router.replace("/home");
+  }, [router]);
 
   return (
-    <div className="font-sans min-h-screen flex flex-col">
-      {/* Navbar at the top */}
-      <Navbar />
-
-      {/* Page content */}
-      {/* lol nothing */}
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-indigo-950 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-600 border-t-transparent mx-auto mb-4"></div>
+        <p className="text-gray-700 dark:text-gray-300">Redirecting to home...</p>
+      </div>
     </div>
   );
 }

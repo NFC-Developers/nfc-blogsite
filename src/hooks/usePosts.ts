@@ -4,13 +4,16 @@ import { auth } from "@/lib/firebase";
 import { getIdToken } from "firebase/auth";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const apiBase = (BACKEND_URL || "").replace(/\/$/, "");
+const isLocalBackend = apiBase === "http://localhost:3000" || apiBase === "http://127.0.0.1:3000";
 
 export function usePosts() {
   const [messages, setMessages] = useState<string[]>([]);
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch(`${BACKEND_URL}/user/posts`);
+  const endpoint = apiBase && !isLocalBackend ? `${apiBase}/user/posts` : `/api/user/posts`;
+  const res = await fetch(endpoint);
       if (!res.ok) throw new Error(res.statusText);
       const data: Post[] = await res.json();
       setMessages(data.map(p => JSON.stringify(p)));

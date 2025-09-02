@@ -10,8 +10,10 @@ export function useUserStories(userId: string, storiesPerPage = 10) {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Base URL for API
+  // Base URL for API (use NEXT_PUBLIC_BACKEND_URL for external backend, otherwise call internal Next API)
   const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const apiBase = (BACKEND_URL || "").replace(/\/$/, "");
+  const isLocalBackend = apiBase === "http://localhost:3000" || apiBase === "http://127.0.0.1:3000";
 
   useEffect(() => {
     if (!userId) return;
@@ -20,7 +22,9 @@ export function useUserStories(userId: string, storiesPerPage = 10) {
       try {
         const token = user ? await user.getIdToken() : null;
 
-        const res = await fetch(`${BACKEND_URL}/user/posts/${userId}`, {
+  // Prefer external backend if configured, otherwise hit our internal Next API at /api/user/posts
+  const endpoint = apiBase && !isLocalBackend ? `${apiBase}/user/posts/${userId}` : `/api/user/posts/${userId}`;
+  const res = await fetch(endpoint, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

@@ -1,20 +1,41 @@
 import prisma from "@/lib/prisma";
 
-export async function GET(req, { params }) {
-  const userId = params.userId; 
+let warnedMissingSchema = false;
+
+export async function GET(req, context) {
+  // Next may provide params as a promise-like value; await the context before using it.
+  const { params } = await context;
+  const userId = params?.userId;
 
   try {
-    const posts = await prisma.post.findMany({
-      where: { author: { firebaseUid: userId } },
-      include: { author: true, tags: true, comments: true },
-      orderBy: { createdAt: "desc" },
-    });
+    let posts;
+    try {
+      posts = await prisma.post.findMany({
+        where: { author: { firebaseUid: userId } },
+        include: { author: true, tags: true, comments: true },
+        orderBy: { createdAt: "desc" },
+      });
+    } catch (prismaErr) {
+      if (prismaErr?.code === "P2021") {
+        if (!warnedMissingSchema) {
+          console.warn(
+            "Prisma schema/tables not found (P2021). Create the local DB with prisma db push or run migrations to remove this warning."
+          );
+          warnedMissingSchema = true;
+        }
 
-    if (!posts.length) {
-      return new Response(JSON.stringify({ error: "No posts found" }), { status: 404 });
+        return new Response(JSON.stringify([]), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
+      console.error("Prisma error while fetching posts by user:", prismaErr);
+      throw prismaErr;
     }
 
-    return new Response(JSON.stringify(posts), {
+    // Return an empty array for no posts (client expects an array).
+    return new Response(JSON.stringify(posts || []), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
