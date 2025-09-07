@@ -4,15 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import TagSelector from "@/components/profile/tagSelector";
 import { PostFormProps } from "@/types/post";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { Button, Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui";
 import RichTextEditor from "@/components/rich-text-editor";
 
 export default function PostForm({ onSubmit }: PostFormProps) {
@@ -60,22 +52,22 @@ export default function PostForm({ onSubmit }: PostFormProps) {
   };
 
   return (
-    <div className="bg-gray-100 p-6 rounded-lg max-w-[1000px] w-full border border-gray-300 shadow-md">
+    <div className="bg-card p-6 rounded-lg max-w-[1000px] w-full border border-border shadow-md">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <h1 className="font-bold text-3xl">Create your Story!</h1>
+        <h1 className="font-bold text-3xl text-foreground">Create your Story!</h1>
         <input
           type="text"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="border p-2 rounded bg-white shadow-md"
+          className="border border-input bg-background text-foreground p-2 rounded shadow-md focus:border-ring focus:ring-1 focus:ring-ring"
         />
         <RichTextEditor value={content} onChange={setContent} />
         <textarea
           placeholder="Short Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="border p-2 rounded bg-white shadow-md h-20"
+          className="border border-input bg-background text-foreground p-2 rounded shadow-md h-20 focus:border-ring focus:ring-1 focus:ring-ring"
         />
 
         <Dialog open={open} onOpenChange={setOpen}>

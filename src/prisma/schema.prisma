@@ -1,0 +1,45 @@
+// Prisma schema for local development (kept inside src/prisma to avoid repo-root write restrictions).
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  firebaseUid String   @unique
+  displayName String?
+  email       String?
+  posts       Post[]
+  createdAt   DateTime @default(now())
+}
+
+model TagCategory {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  tags Tag[]
+}
+
+model Tag {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  category   TagCategory? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  posts      Post[]       @relation("PostTags")
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  content     String?
+  rating      Float?
+  isExplicit  Boolean  @default(false)
+  author      User?    @relation(fields: [authorId], references: [id])
+  authorId    Int?
+  tags        Tag[]    @relation("PostTags")
+  createdAt   DateTime @default(now())
+}

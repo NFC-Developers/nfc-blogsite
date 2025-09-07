@@ -6,14 +6,14 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 
-import { Button } from "@/components/ui/button";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
+  Separator,
+} from "@/components/ui";
 
 import {
   Bold,
@@ -62,7 +62,7 @@ export default function RichTextEditor({
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm max-w-none p-3 min-h-[180px] focus:outline-none",
+          "prose prose-sm dark:prose-invert max-w-none p-3 min-h-[180px] focus:outline-none bg-background text-foreground",
       },
     },
     immediatelyRender: false,
@@ -82,8 +82,8 @@ export default function RichTextEditor({
   };
 
   return (
-    <div className="border rounded-md bg-white shadow-sm">
-      <div className="flex flex-wrap items-center gap-1 px-2 py-2 border-b">
+    <div className="border border-border rounded-md bg-background shadow-sm">
+      <div className="flex flex-wrap items-center gap-1 px-2 py-2 border-b border-border">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button type="button" size="sm" variant="outline" className="gap-2">

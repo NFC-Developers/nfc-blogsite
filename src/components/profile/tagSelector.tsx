@@ -1,23 +1,15 @@
 "use client";
 
-import {
-  Command,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-} from "@/components/ui/command";
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, Button, Switch } from "@/components/ui";
 import { Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { TagSelectorProps, Rating } from "@/types/post";
 
 const categoryColors: Record<string, string> = {
-  Genre: "bg-purple-100 text-purple-700",
-  Theme: "bg-green-100 text-green-700",
-  Characters: "bg-blue-100 text-blue-700",
-  Other: "bg-gray-100 text-gray-700",
+  Genre: "bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300",
+  Theme: "bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300",
+  Characters: "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300",
+  Other: "bg-muted text-muted-foreground",
+  Default: "bg-muted text-muted-foreground",
 };
 
 export default function TagSelector({
@@ -52,7 +44,7 @@ export default function TagSelector({
             placeholder="Enter tag..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            className="border p-2 rounded flex-1"
+            className="border border-input bg-background text-foreground p-2 rounded flex-1 focus:border-ring focus:ring-1 focus:ring-ring"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -64,7 +56,7 @@ export default function TagSelector({
           <select
             value={inputCategory}
             onChange={(e) => setInputCategory(e.target.value)}
-            className="border p-2 rounded"
+            className="border border-input bg-background text-foreground p-2 rounded focus:border-ring focus:ring-1 focus:ring-ring"
           >
             {categories.map((cat) => (
               <option key={cat} value={cat}>
@@ -145,7 +137,7 @@ export default function TagSelector({
         <select
           value={rating}
           onChange={(e) => setRating(e.target.value as Rating)}
-          className="border p-2 rounded"
+          className="border border-input bg-background text-foreground p-2 rounded focus:border-ring focus:ring-1 focus:ring-ring"
         >
           {ratings.map((r) => (
             <option key={r} value={r}>

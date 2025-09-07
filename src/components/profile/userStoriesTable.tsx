@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui";
 import StoryCardComponent from "@/components/shared/StoryCard";
 import type { UserStoriesListProps } from "@/types/story";
 import { useUserStories } from "@/hooks/useUserStories";
@@ -17,14 +17,14 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
   } = useUserStories(userId, 10);
 
   return (
-    <div className="bg-gray-800 p-6 rounded-2xl shadow-lg mt-6 mr-4">
+    <div className="p-4 sm:p-6">
       <div className="mb-4">
         <Input
           type="text"
           placeholder="Search stories..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-1/3 bg-gray-700 text-white border-gray-600"
+          className="w-full sm:w-1/3"
         />
       </div>
 
@@ -37,20 +37,20 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
             />
           ))
         ) : (
-          <p className="text-gray-400">No stories found</p>
+          <p className="text-muted-foreground">No stories found</p>
         )}
       </div>
 
       {totalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-6">
+        <div className="flex flex-wrap justify-center gap-2 mt-6">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
               onClick={() => setCurrentPage(page)}
-              className={`px-3 py-1 rounded ${
+              className={`px-3 py-1 rounded text-sm ${
                 page === currentPage
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
               {page}

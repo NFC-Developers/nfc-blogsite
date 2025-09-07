@@ -1,16 +1,12 @@
 import prisma from "@/lib/prisma";
 import { requireAuth } from "@/middlewares/auth";
 
-
 export async function GET(req) {
   try {
     const url = new URL(req.url);
     const userId = url.searchParams.get("userId");
-
     const posts = await prisma.post.findMany({
-      where: userId
-        ? { author: { firebaseUid: userId } }
-        : {}, 
+      where: userId ? { author: { firebaseUid: userId } } : {},
       include: { author: true, tags: true, comments: true },
       orderBy: { createdAt: "desc" },
     });

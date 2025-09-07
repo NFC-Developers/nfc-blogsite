@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePosts } from "./usePosts";
+import type { Story } from "@/types/story";
 
 export function useHome() {
     const { messages, fetchPosts } = usePosts();
@@ -13,7 +14,17 @@ export function useHome() {
         }
     },[fetchPosts, messages.length]);
 
-    const allStories = messages.map(str=>JSON.parse(str));
+    // Some entries in `messages` may be plain text error messages (not JSON).
+    // Parse only valid JSON strings and skip anything that fails to parse.
+    const allStories: Story[] = messages
+        .map((str) => {
+            try {
+                return JSON.parse(str) as Story;
+            } catch {
+                return null;
+            }
+        })
+        .filter((s): s is Story => s !== null);
 
     function strCompare(str1: string, str2: string) {
         if (str1 < str2) return -1;
@@ -26,7 +37,12 @@ export function useHome() {
     }
 
     function getNewest() {
-        return allStories.sort((a,b)=>strCompare(b.createdAt, a.createdAt)).slice(0,10);
+        // don't mutate original array when sorting
+        return [...allStories]
+            .sort((a, b) =>
+                strCompare(String(b.createdAt || ""), String(a.createdAt || ""))
+            )
+            .slice(0, 10);
     }
 
     function getLatestUpdate() {
