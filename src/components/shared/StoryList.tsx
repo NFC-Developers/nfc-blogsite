@@ -24,10 +24,10 @@ export function StoryList({ title, stories }: { title: string; stories: Story[] 
   if (safeStories.length === 0) {
     return (
       <div className="flex-1">
-        <div className="w-full bg-gray-500 rounded-md pl-4 py-2 text-xl text-white">{title}</div>
+        <div className="w-full bg-muted rounded-md pl-4 py-2 text-xl text-foreground">{title}</div>
         <div className="mt-4 space-y-3 animate-pulse">
-          <div className="h-20 bg-gray-200 dark:bg-gray-700 rounded" />
-          <div className="h-20 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="h-20 bg-muted rounded" />
+          <div className="h-20 bg-muted rounded" />
         </div>
       </div>
     );
@@ -35,7 +35,7 @@ export function StoryList({ title, stories }: { title: string; stories: Story[] 
 
   return (
     <div className="flex-1">
-      <div className="w-full bg-gray-500 rounded-md pl-4 py-2 text-xl text-white">{title}</div>
+      <div className="w-full bg-muted rounded-md pl-4 py-2 text-xl text-foreground">{title}</div>
       {content}
     </div>
   );

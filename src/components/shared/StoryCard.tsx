@@ -92,7 +92,7 @@ export default function StoryCard(props: Story & {fetchData?: boolean; compact?:
           </Link>
 
           {!compact && (
-            <span className="shrink-0 text-gray-500 ml-2 text-lg">
+            <span className="shrink-0 text-gray-500 dark:text-gray-400 ml-2 text-lg">
               by
               <Link
                 href={"/user/" + props.author.firebaseUid}
@@ -109,7 +109,7 @@ export default function StoryCard(props: Story & {fetchData?: boolean; compact?:
         <CardContent>
           <div className="flex flex-wrap gap-1 mb-2">
             {storyData?.tags?.map((tag, i) => (
-              <TagDisp key={i} name={tag.name} categoryId={tag.categoryId} />
+              <TagDisp key={i} name={tag.name} categoryId={tag.categoryId?.toString()} />
             ))}
           </div>
           <hr className="my-3" />
@@ -118,7 +118,7 @@ export default function StoryCard(props: Story & {fetchData?: boolean; compact?:
       )}
 
       <CardFooter>
-        <div className={`rounded-sm ${compact ? 'bg-transparent p-0' : 'bg-gray-100 w-full p-2'} text-sm text-gray-800 flex ${compact ? 'items-center gap-3' : 'flex-col gap-1'}`}>
+        <div className={`rounded-sm ${compact ? 'bg-transparent p-0' : 'bg-gray-100 dark:bg-gray-800 w-full p-2'} text-sm text-gray-800 dark:text-gray-100 flex ${compact ? 'items-center gap-3' : 'flex-col gap-1'}`}>
           <div className={compact ? 'flex items-center gap-3 text-gray-300 text-sm' : 'flex items-center gap-2'}>
             <span className="font-medium">{wordCount} words</span>
             {!compact && (

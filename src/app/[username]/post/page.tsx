@@ -23,21 +23,23 @@ export default function AddPostPage() {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-red-50 dark:from-gray-900 dark:via-slate-900 dark:to-pink-950">
       <Navbar />
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] p-8 sm:p-20 gap-8 bg-indigo-50">
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] p-8 sm:p-20 gap-8">
         {!user ? (
-          <p className="text-red-500">⚠️ You must log in first to create posts.</p>
+          <div className="bg-card border border-border rounded-lg p-6 text-center">
+            <p className="text-destructive">⚠️ You must log in first to create posts.</p>
+          </div>
         ) : (
           <PostForm onSubmit={handlePostSubmit} />
         )}
 
         <div className="flex flex-col gap-2 mt-4 w-full max-w-[1000px]">
           {messages.map((msg, i) => (
-            <div key={i} className="bg-gray-100 p-2 rounded break-words text-red-500">{msg}</div>
+            <div key={i} className="bg-muted p-2 rounded break-words text-destructive">{msg}</div>
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

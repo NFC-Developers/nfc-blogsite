@@ -1,9 +1,11 @@
-version: "3.9"
+﻿version: "3.9"
+
 services:
+  # PostgreSQL Database
   postgres:
-    image: postgres:15
+    image: postgres:15-alpine
     container_name: nfc-postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: neuro
       POSTGRES_PASSWORD: secret
@@ -12,11 +14,91 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - nfc-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U neuro -d nfc-blog-db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Firebase Emulator Suite
+  firebase-emulators:
+    image: andreysenov/firebase-tools
+    container_name: nfc-firebase-emulators
+    restart: unless-stopped
+    ports:
+      - "4000:4000"  # Emulator UI
+      - "9099:9099"  # Auth Emulator
+      - "9090:9090"  # Firestore Emulator
+      - "9199:9199"  # Storage Emulator
+    volumes:
+      - ./firebase.json:/app/firebase.json
+      - ./firestore.rules:/app/firestore.rules
+      - ./storage.rules:/app/storage.rules
+      - ./emulator-data:/app/emulator-data
+    command: firebase emulators:start --import=/app/emulator-data --export-on-exit=/app/emulator-data --project=nfc-blogsite
+    networks:
+      - nfc-network
+    environment:
+      - FIREBASE_TOKEN=dummy
+
+  # Next.js Development Server
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: nfc-app-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://neuro:secret@postgres:5432/nfc-blog-db
+      - NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_URL=http://firebase-emulators:9099
+      - NEXT_PUBLIC_FIREBASE_FIRESTORE_EMULATOR_URL=http://firebase-emulators:9090
+      - NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_URL=http://firebase-emulators:9199
+    depends_on:
+      postgres:
+        condition: service_healthy
+      firebase-emulators:
+        condition: service_started
+    networks:
+      - nfc-network
+    profiles:
+      - dev
+
+  # Next.js Production Server
+  app-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nfc-app-prod
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://neuro:secret@postgres:5432/nfc-blog-db
+      - NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_URL=http://firebase-emulators:9099
+      - NEXT_PUBLIC_FIREBASE_FIRESTORE_EMULATOR_URL=http://firebase-emulators:9090
+      - NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_URL=http://firebase-emulators:9199
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - nfc-network
+    profiles:
+      - prod
 
 volumes:
   postgres_data:
+    driver: local
 
 networks:
   nfc-network:

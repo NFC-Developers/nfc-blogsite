@@ -1,41 +1,15 @@
 import prisma from "@/lib/prisma";
 import { requireAuth } from "@/middlewares/auth";
 
-// Cache whether we've already warned about a missing schema to avoid repeated logs.
-let warnedMissingSchema = false;
-
 export async function GET(req) {
   try {
     const url = new URL(req.url);
     const userId = url.searchParams.get("userId");
-
-    let posts;
-    try {
-      posts = await prisma.post.findMany({
-        where: userId ? { author: { firebaseUid: userId } } : {},
-        include: { author: true, tags: true, comments: true },
-        orderBy: { createdAt: "desc" },
-      });
-    } catch (prismaErr) {
-      // If the database/tables aren't set up locally, return an empty list so the UI
-      // can still render without a 500. Log a concise warning only once.
-      if (prismaErr?.code === "P2021") {
-        if (!warnedMissingSchema) {
-          console.warn(
-            "Prisma schema/tables not found (P2021). Create the local DB with prisma db push or run migrations to remove this warning."
-          );
-          warnedMissingSchema = true;
-        }
-
-        return new Response(JSON.stringify([]), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-
-      console.error("Prisma error while fetching posts:", prismaErr);
-      throw prismaErr;
-    }
+    const posts = await prisma.post.findMany({
+      where: userId ? { author: { firebaseUid: userId } } : {},
+      include: { author: true, tags: true, comments: true },
+      orderBy: { createdAt: "desc" },
+    });
 
     return new Response(JSON.stringify(posts), {
       status: 200,

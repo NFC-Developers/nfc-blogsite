@@ -51,31 +51,33 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  /* Pink/Red primary color scheme */
+  --primary: oklch(0.572 0.24 12.57); /* Deep pink-red */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.97 0.02 15); /* Light pink tint */
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.97 0.02 15);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.94 0.05 20); /* Pink accent */
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --border: oklch(0.922 0.02 15);
+  --input: oklch(0.922 0.02 15);
+  --ring: oklch(0.572 0.24 12.57);
+  /* Blue accent colors */
+  --chart-1: oklch(0.6 0.2 240); /* Blue accent */
+  --chart-2: oklch(0.8 0.15 60); /* Yellow accent */
+  --chart-3: oklch(0.572 0.24 12.57); /* Primary pink-red */
+  --chart-4: oklch(0.7 0.18 340); /* Pink variation */
+  --chart-5: oklch(0.65 0.22 25); /* Red variation */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: oklch(0.572 0.24 12.57);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent: oklch(0.94 0.05 20);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-border: oklch(0.922 0.02 15);
+  --sidebar-ring: oklch(0.572 0.24 12.57);
 }
 
 .dark {
@@ -85,31 +87,33 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  /* Dark mode pink/red primary colors */
+  --primary: oklch(0.8 0.2 15); /* Lighter pink for dark mode */
+  --primary-foreground: oklch(0.1 0 0);
+  --secondary: oklch(0.269 0.05 15); /* Dark pink tint */
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
+  --muted: oklch(0.269 0.05 15);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --accent: oklch(0.35 0.1 20); /* Dark pink accent */
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --ring: oklch(0.8 0.2 15);
+  /* Dark mode accent colors */
+  --chart-1: oklch(0.7 0.18 240); /* Lighter blue accent for dark */
+  --chart-2: oklch(0.8 0.15 60); /* Yellow accent */
+  --chart-3: oklch(0.8 0.2 15); /* Primary pink */
+  --chart-4: oklch(0.75 0.16 340); /* Pink variation */
+  --chart-5: oklch(0.7 0.2 25); /* Red variation */
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-primary: oklch(0.8 0.2 15);
+  --sidebar-primary-foreground: oklch(0.1 0 0);
+  --sidebar-accent: oklch(0.35 0.1 20);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.8 0.2 15);
 }
 
 @layer base {
@@ -132,4 +136,57 @@
 
   /* Sticky backdrop-friendly header support */
   header { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+}
+
+/* Rich Text Editor Styles */
+.ProseMirror {
+  @apply bg-background text-foreground p-4 min-h-[200px] outline-none;
+}
+
+.ProseMirror h1 {
+  @apply text-2xl font-bold mb-4 text-foreground;
+}
+
+.ProseMirror h2 {
+  @apply text-xl font-semibold mb-3 text-foreground;
+}
+
+.ProseMirror p {
+  @apply mb-2 text-foreground;
+}
+
+.ProseMirror ul, .ProseMirror ol {
+  @apply ml-6 mb-2;
+}
+
+.ProseMirror li {
+  @apply mb-1 text-foreground;
+}
+
+.ProseMirror a {
+  @apply text-primary underline;
+}
+
+.ProseMirror strong {
+  @apply font-bold;
+}
+
+.ProseMirror em {
+  @apply italic;
+}
+
+.ProseMirror u {
+  @apply underline;
+}
+
+.ProseMirror s {
+  @apply line-through;
+}
+
+.ProseMirror .is-editor-empty:first-child::before {
+  @apply text-muted-foreground;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }

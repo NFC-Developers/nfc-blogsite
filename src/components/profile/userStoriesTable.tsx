@@ -24,7 +24,7 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
           placeholder="Search stories..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-1/3 bg-gray-700 text-white border-gray-600"
+          className="w-full sm:w-1/3"
         />
       </div>
 
@@ -37,7 +37,7 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
             />
           ))
         ) : (
-          <p className="text-gray-400">No stories found</p>
+          <p className="text-muted-foreground">No stories found</p>
         )}
       </div>
 
@@ -49,8 +49,8 @@ export default function UserStoriesList({ userId }: UserStoriesListProps) {
               onClick={() => setCurrentPage(page)}
               className={`px-3 py-1 rounded text-sm ${
                 page === currentPage
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
               {page}

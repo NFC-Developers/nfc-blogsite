@@ -1,0 +1,254 @@
+[debug] [2025-09-03T06:25:35.937Z] ----------------------------------------------------------------------
+[debug] [2025-09-03T06:25:35.940Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import=./emulator-data --export-on-exit=./emulator-data
+[debug] [2025-09-03T06:25:35.940Z] CLI Version:   14.15.1
+[debug] [2025-09-03T06:25:35.940Z] Platform:      win32
+[debug] [2025-09-03T06:25:35.940Z] Node Version:  v24.6.0
+[debug] [2025-09-03T06:25:35.940Z] Time:          Wed Sep 03 2025 14:25:35 GMT+0800 (Philippine Standard Time)
+[debug] [2025-09-03T06:25:35.940Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-03T06:25:35.942Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2025-09-03T06:25:36.151Z] Object "/emulators/firestore" in "firebase.json" has unknown property: {"additionalProperty":"rules"}
+[debug] [2025-09-03T06:25:36.155Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] Failed to authenticate, have you run firebase login?
+[warn] !  emulators: You are not currently authenticated so some features may not work correctly. Please run firebase login to authenticate the CLI. 
+[debug] [2025-09-03T06:25:36.334Z] openjdk version "21.0.8" 2025-07-15 LTS
+
+[debug] [2025-09-03T06:25:36.335Z] OpenJDK Runtime Environment Microsoft-11933218 (build 21.0.8+9-LTS)
+OpenJDK 64-Bit Server VM Microsoft-11933218 (build 21.0.8+9-LTS, mixed mode, sharing)
+
+[debug] [2025-09-03T06:25:36.376Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: auth, firestore, storage {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore, storage"}}
+[debug] [2025-09-03T06:25:36.390Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-09-03T06:25:36.390Z] assigned listening specs for emulators {"user":{"auth":[{"address":"0.0.0.0","family":"IPv4","port":9099}],"firestore":[{"address":"0.0.0.0","family":"IPv4","port":9090}],"firestore.websocket":[{"address":"0.0.0.0","family":"IPv4","port":9150}],"storage":[{"address":"0.0.0.0","family":"IPv4","port":9199}],"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-09-03T06:25:36.395Z] [hub] writing locator at C:\Users\EXTOR_~1.DES\AppData\Local\Temp\hub-nfc-blogsite.json
+[warn] !  firestore: Cloud Firestore Emulator does not support multiple databases yet. {"metadata":{"emulator":{"name":"firestore"},"message":"Cloud Firestore Emulator does not support multiple databases yet."}}
+[warn] !  firestore: Did not find a Cloud Firestore rules file specified in a firebase.json config file. {"metadata":{"emulator":{"name":"firestore"},"message":"Did not find a Cloud Firestore rules file specified in a firebase.json config file."}}
+[warn] !  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"firestore"},"message":"The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
+[info] i  firestore: downloading cloud-firestore-emulator-v1.19.8.jar... {"metadata":{"emulator":{"name":"firestore"},"message":"downloading cloud-firestore-emulator-v1.19.8.jar..."}}
+[debug] [2025-09-03T06:25:36.414Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.19.8.jar 
+[debug] [2025-09-03T06:25:36.679Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2025-09-03T06:25:36.679Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2025-09-03T06:25:37.011Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.19.8.jar 200
+[debug] [2025-09-03T06:25:37.012Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.19.8.jar [stream]
+[debug] [2025-09-03T06:25:46.447Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-09-03T06:25:46.448Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2025-09-03T06:25:46.448Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\EXTOR_ZYON.DESKTOP-4106NAL\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.19.8.jar","--host","0.0.0.0","--port",9090,"--websocket_port",9150,"--project_id","nfc-blogsite","--single_project_mode",true],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false,"shell":false,"port":9090} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\EXTOR_ZYON.DESKTOP-4106NAL\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.19.8.jar\",\"--host\",\"0.0.0.0\",\"--port\",9090,\"--websocket_port\",9150,\"--project_id\",\"nfc-blogsite\",\"--single_project_mode\",true],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":9090}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2025-09-03T06:25:48.071Z] Sep 03, 2025 2:25:48 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://0.0.0.0:9150
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 03, 2025 2:25:48 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\r\nINFO: Started WebSocket server on ws://0.0.0.0:9150\r\n"}}
+[debug] [2025-09-03T06:25:48.137Z] API endpoint: http:// {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://"}}
+[debug] [2025-09-03T06:25:48.139Z] 0.0.0.0:9090
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=0.0.0.0:9090
+
+If you are running a Firestore in Datastore Mode project, run:
+
+   export DATASTORE_EMULATOR_HOST=0.0.0.0:9090
+
+Note: Support for Datastore Mode is in preview. If you encounter any bugs please file at https://github.com/firebase/firebase-tools/issues.
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"0.0.0.0:9090\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\r\n\n   export FIRESTORE_EMULATOR_HOST=0.0.0.0:9090\n\nIf you are running a Firestore in Datastore Mode project, run:\r\n\n   export DATASTORE_EMULATOR_HOST=0.0.0.0:9090\n\nNote: Support for Datastore Mode is in preview. If you encounter any bugs please file at https://github.com/firebase/firebase-tools/issues.\r\nDev App Server is now running.\n\r\n"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[info] i  storage: downloading cloud-storage-rules-runtime-v1.1.3.jar... {"metadata":{"emulator":{"name":"storage"},"message":"downloading cloud-storage-rules-runtime-v1.1.3.jar..."}}
+[debug] [2025-09-03T06:25:56.905Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.1.3.jar 
+[debug] [2025-09-03T06:25:57.443Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.1.3.jar 200
+[debug] [2025-09-03T06:25:57.443Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.1.3.jar [stream]
+[debug] [2025-09-03T06:26:08.250Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2025-09-03T06:26:09.096Z] Temp file directory for storage emulator: C:\Users\EXTOR_~1.DES\AppData\Local\Temp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: C:\\Users\\EXTOR_~1.DES\\AppData\\Local\\Temp/firebase/storage/blobs"}}
+[info] i  ui: downloading ui-v1.15.0.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.15.0.zip..."}}
+[debug] [2025-09-03T06:26:09.124Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.15.0.zip 
+[debug] [2025-09-03T06:26:09.217Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.15.0.zip 200
+[debug] [2025-09-03T06:26:09.217Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.15.0.zip [stream]
+[debug] [2025-09-03T06:26:09.951Z] Data is 3538469
+[debug] [2025-09-03T06:26:09.951Z] [unzip] Entry: client/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-09-03T06:26:09.951Z] [unzip] Processing entry: client\
+[debug] [2025-09-03T06:26:09.951Z] [unzip] mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\
+[debug] [2025-09-03T06:26:09.953Z] [unzip] Entry: client/favicon-16x16.png (compressed_size=293 bytes, uncompressed_size=293 bytes)
+[debug] [2025-09-03T06:26:09.953Z] [unzip] Processing entry: client\favicon-16x16.png
+[debug] [2025-09-03T06:26:09.953Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.953Z] [unzip] Writing file: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\favicon-16x16.png
+[debug] [2025-09-03T06:26:09.954Z] [unzip] Entry: client/safari-pinned-tab.svg (compressed_size=1433 bytes, uncompressed_size=2611 bytes)
+[debug] [2025-09-03T06:26:09.955Z] [unzip] Processing entry: client\safari-pinned-tab.svg
+[debug] [2025-09-03T06:26:09.955Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.955Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\safari-pinned-tab.svg
+[debug] [2025-09-03T06:26:09.961Z] [unzip] Entry: client/favicon.ico (compressed_size=2933 bytes, uncompressed_size=13294 bytes)
+[debug] [2025-09-03T06:26:09.961Z] [unzip] Processing entry: client\favicon.ico
+[debug] [2025-09-03T06:26:09.961Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.962Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\favicon.ico
+[debug] [2025-09-03T06:26:09.964Z] [unzip] Entry: client/index.html (compressed_size=1364 bytes, uncompressed_size=3071 bytes)
+[debug] [2025-09-03T06:26:09.964Z] [unzip] Processing entry: client\index.html
+[debug] [2025-09-03T06:26:09.964Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.965Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\index.html
+[debug] [2025-09-03T06:26:09.967Z] [unzip] Entry: client/android-chrome-192x192.png (compressed_size=2684 bytes, uncompressed_size=2684 bytes)
+[debug] [2025-09-03T06:26:09.967Z] [unzip] Processing entry: client\android-chrome-192x192.png
+[debug] [2025-09-03T06:26:09.967Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.968Z] [unzip] Writing file: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\android-chrome-192x192.png
+[debug] [2025-09-03T06:26:09.968Z] [unzip] Entry: client/apple-touch-icon.png (compressed_size=2123 bytes, uncompressed_size=2152 bytes)
+[debug] [2025-09-03T06:26:09.969Z] [unzip] Processing entry: client\apple-touch-icon.png
+[debug] [2025-09-03T06:26:09.969Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.969Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\apple-touch-icon.png
+[debug] [2025-09-03T06:26:09.971Z] [unzip] Entry: client/android-chrome-512x512.png (compressed_size=5369 bytes, uncompressed_size=5411 bytes)
+[debug] [2025-09-03T06:26:09.971Z] [unzip] Processing entry: client\android-chrome-512x512.png
+[debug] [2025-09-03T06:26:09.971Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.971Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\android-chrome-512x512.png
+[debug] [2025-09-03T06:26:09.973Z] [unzip] Entry: client/manifest.json (compressed_size=245 bytes, uncompressed_size=551 bytes)
+[debug] [2025-09-03T06:26:09.973Z] [unzip] Processing entry: client\manifest.json
+[debug] [2025-09-03T06:26:09.973Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.973Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\manifest.json
+[debug] [2025-09-03T06:26:09.974Z] [unzip] Entry: client/robots.txt (compressed_size=26 bytes, uncompressed_size=26 bytes)
+[debug] [2025-09-03T06:26:09.974Z] [unzip] Processing entry: client\robots.txt
+[debug] [2025-09-03T06:26:09.975Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.975Z] [unzip] Writing file: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\robots.txt
+[debug] [2025-09-03T06:26:09.976Z] [unzip] Entry: client/mstile-150x150.png (compressed_size=2034 bytes, uncompressed_size=2034 bytes)
+[debug] [2025-09-03T06:26:09.976Z] [unzip] Processing entry: client\mstile-150x150.png
+[debug] [2025-09-03T06:26:09.976Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:09.977Z] [unzip] Writing file: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\mstile-150x150.png
+[debug] [2025-09-03T06:26:09.978Z] [unzip] Entry: client/assets/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-09-03T06:26:09.978Z] [unzip] Processing entry: client\assets\
+[debug] [2025-09-03T06:26:09.978Z] [unzip] mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\
+[debug] [2025-09-03T06:26:09.978Z] [unzip] Entry: client/assets/index-BX-A56oj.js (compressed_size=582089 bytes, uncompressed_size=2092775 bytes)
+[debug] [2025-09-03T06:26:09.979Z] [unzip] Processing entry: client\assets\index-BX-A56oj.js
+[debug] [2025-09-03T06:26:09.979Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets
+[debug] [2025-09-03T06:26:09.979Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\index-BX-A56oj.js
+[debug] [2025-09-03T06:26:09.998Z] [unzip] Entry: client/assets/index-CjB9C900.css (compressed_size=35979 bytes, uncompressed_size=298654 bytes)
+[debug] [2025-09-03T06:26:09.999Z] [unzip] Processing entry: client\assets\index-CjB9C900.css
+[debug] [2025-09-03T06:26:09.999Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets
+[debug] [2025-09-03T06:26:09.999Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\index-CjB9C900.css
+[debug] [2025-09-03T06:26:10.002Z] [unzip] Entry: client/assets/index-BX-A56oj.js.map (compressed_size=2362482 bytes, uncompressed_size=10036679 bytes)
+[debug] [2025-09-03T06:26:10.002Z] [unzip] Processing entry: client\assets\index-BX-A56oj.js.map
+[debug] [2025-09-03T06:26:10.002Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets
+[debug] [2025-09-03T06:26:10.002Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\index-BX-A56oj.js.map
+[debug] [2025-09-03T06:26:10.052Z] [unzip] Entry: client/assets/extensions/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-09-03T06:26:10.053Z] [unzip] Processing entry: client\assets\extensions\
+[debug] [2025-09-03T06:26:10.053Z] [unzip] mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\extensions\
+[debug] [2025-09-03T06:26:10.053Z] [unzip] Entry: client/assets/extensions/default-extension.png (compressed_size=1646 bytes, uncompressed_size=1657 bytes)
+[debug] [2025-09-03T06:26:10.053Z] [unzip] Processing entry: client\assets\extensions\default-extension.png
+[debug] [2025-09-03T06:26:10.053Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\extensions
+[debug] [2025-09-03T06:26:10.054Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\extensions\default-extension.png
+[debug] [2025-09-03T06:26:10.055Z] [unzip] Entry: client/assets/img/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-09-03T06:26:10.055Z] [unzip] Processing entry: client\assets\img\
+[debug] [2025-09-03T06:26:10.055Z] [unzip] mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\img\
+[debug] [2025-09-03T06:26:10.056Z] [unzip] Entry: client/assets/img/database.png (compressed_size=29449 bytes, uncompressed_size=29988 bytes)
+[debug] [2025-09-03T06:26:10.056Z] [unzip] Processing entry: client\assets\img\database.png
+[debug] [2025-09-03T06:26:10.056Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\img
+[debug] [2025-09-03T06:26:10.056Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\img\database.png
+[debug] [2025-09-03T06:26:10.064Z] [unzip] Entry: client/assets/provider-icons/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-09-03T06:26:10.064Z] [unzip] Processing entry: client\assets\provider-icons\
+[debug] [2025-09-03T06:26:10.064Z] [unzip] mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\
+[debug] [2025-09-03T06:26:10.065Z] [unzip] Entry: client/assets/provider-icons/auth_service_saml.svg (compressed_size=575 bytes, uncompressed_size=1226 bytes)
+[debug] [2025-09-03T06:26:10.065Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_saml.svg
+[debug] [2025-09-03T06:26:10.065Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.065Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_saml.svg
+[debug] [2025-09-03T06:26:10.067Z] [unzip] Entry: client/assets/provider-icons/auth_service_phone.svg (compressed_size=261 bytes, uncompressed_size=414 bytes)
+[debug] [2025-09-03T06:26:10.067Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_phone.svg
+[debug] [2025-09-03T06:26:10.067Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.067Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_phone.svg
+[debug] [2025-09-03T06:26:10.068Z] [unzip] Entry: client/assets/provider-icons/auth_service_facebook.svg (compressed_size=289 bytes, uncompressed_size=457 bytes)
+[debug] [2025-09-03T06:26:10.068Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_facebook.svg
+[debug] [2025-09-03T06:26:10.068Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.069Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_facebook.svg
+[debug] [2025-09-03T06:26:10.070Z] [unzip] Entry: client/assets/provider-icons/auth_service_game_center.svg (compressed_size=991 bytes, uncompressed_size=3921 bytes)
+[debug] [2025-09-03T06:26:10.070Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_game_center.svg
+[debug] [2025-09-03T06:26:10.070Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.070Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_game_center.svg
+[debug] [2025-09-03T06:26:10.071Z] [unzip] Entry: client/assets/provider-icons/auth_service_apple.svg (compressed_size=230 bytes, uncompressed_size=334 bytes)
+[debug] [2025-09-03T06:26:10.071Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_apple.svg
+[debug] [2025-09-03T06:26:10.071Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.071Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_apple.svg
+[debug] [2025-09-03T06:26:10.072Z] [unzip] Entry: client/assets/provider-icons/auth_service_github.svg (compressed_size=466 bytes, uncompressed_size=838 bytes)
+[debug] [2025-09-03T06:26:10.072Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_github.svg
+[debug] [2025-09-03T06:26:10.072Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.072Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_github.svg
+[debug] [2025-09-03T06:26:10.073Z] [unzip] Entry: client/assets/provider-icons/auth_service_mslive.svg (compressed_size=203 bytes, uncompressed_size=378 bytes)
+[debug] [2025-09-03T06:26:10.073Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_mslive.svg
+[debug] [2025-09-03T06:26:10.073Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.074Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_mslive.svg
+[debug] [2025-09-03T06:26:10.074Z] [unzip] Entry: client/assets/provider-icons/auth_service_yahoo.svg (compressed_size=577 bytes, uncompressed_size=1182 bytes)
+[debug] [2025-09-03T06:26:10.074Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_yahoo.svg
+[debug] [2025-09-03T06:26:10.075Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.075Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_yahoo.svg
+[debug] [2025-09-03T06:26:10.075Z] [unzip] Entry: client/assets/provider-icons/auth_service_twitter.svg (compressed_size=444 bytes, uncompressed_size=751 bytes)
+[debug] [2025-09-03T06:26:10.075Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_twitter.svg
+[debug] [2025-09-03T06:26:10.075Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.076Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_twitter.svg
+[debug] [2025-09-03T06:26:10.076Z] [unzip] Entry: client/assets/provider-icons/auth_service_play_games.svg (compressed_size=565 bytes, uncompressed_size=1173 bytes)
+[debug] [2025-09-03T06:26:10.076Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_play_games.svg
+[debug] [2025-09-03T06:26:10.076Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.077Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_play_games.svg
+[debug] [2025-09-03T06:26:10.077Z] [unzip] Entry: client/assets/provider-icons/auth_service_email.svg (compressed_size=228 bytes, uncompressed_size=326 bytes)
+[debug] [2025-09-03T06:26:10.077Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_email.svg
+[debug] [2025-09-03T06:26:10.077Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.078Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_email.svg
+[debug] [2025-09-03T06:26:10.078Z] [unzip] Entry: client/assets/provider-icons/auth_service_google.svg (compressed_size=409 bytes, uncompressed_size=720 bytes)
+[debug] [2025-09-03T06:26:10.078Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_google.svg
+[debug] [2025-09-03T06:26:10.078Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.079Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_google.svg
+[debug] [2025-09-03T06:26:10.079Z] [unzip] Entry: client/assets/provider-icons/auth_service_oidc.svg (compressed_size=414 bytes, uncompressed_size=858 bytes)
+[debug] [2025-09-03T06:26:10.079Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_oidc.svg
+[debug] [2025-09-03T06:26:10.079Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-09-03T06:26:10.079Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_oidc.svg
+[debug] [2025-09-03T06:26:10.080Z] [unzip] Entry: client/browserconfig.xml (compressed_size=491 bytes, uncompressed_size=822 bytes)
+[debug] [2025-09-03T06:26:10.080Z] [unzip] Processing entry: client\browserconfig.xml
+[debug] [2025-09-03T06:26:10.080Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:10.080Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\browserconfig.xml
+[debug] [2025-09-03T06:26:10.081Z] [unzip] Entry: client/favicon-32x32.png (compressed_size=475 bytes, uncompressed_size=475 bytes)
+[debug] [2025-09-03T06:26:10.081Z] [unzip] Processing entry: client\favicon-32x32.png
+[debug] [2025-09-03T06:26:10.081Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-09-03T06:26:10.081Z] [unzip] Writing file: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\client\favicon-32x32.png
+[debug] [2025-09-03T06:26:10.083Z] [unzip] Entry: server/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-09-03T06:26:10.083Z] [unzip] Processing entry: server\
+[debug] [2025-09-03T06:26:10.083Z] [unzip] mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\server\
+[debug] [2025-09-03T06:26:10.083Z] [unzip] Entry: server/server.mjs.map (compressed_size=217845 bytes, uncompressed_size=944978 bytes)
+[debug] [2025-09-03T06:26:10.083Z] [unzip] Processing entry: server\server.mjs.map
+[debug] [2025-09-03T06:26:10.083Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\server
+[debug] [2025-09-03T06:26:10.083Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\server\server.mjs.map
+[debug] [2025-09-03T06:26:10.088Z] [unzip] Entry: server/server.mjs (compressed_size=276407 bytes, uncompressed_size=933701 bytes)
+[debug] [2025-09-03T06:26:10.088Z] [unzip] Processing entry: server\server.mjs
+[debug] [2025-09-03T06:26:10.088Z] [unzip] else mkdir: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\server
+[debug] [2025-09-03T06:26:10.088Z] [unzip] deflating: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\.cache\firebase\emulators\ui-v1.15.0\server\server.mjs
+[debug] [2025-09-03T06:26:10.101Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬──────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port    │ View in Emulator UI             │
+├────────────────┼──────────────┼─────────────────────────────────┤
+│ Authentication │ 0.0.0.0:9099 │ http://127.0.0.1:4000/auth      │
+├────────────────┼──────────────┼─────────────────────────────────┤
+│ Firestore      │ 0.0.0.0:9090 │ http://127.0.0.1:4000/firestore │
+├────────────────┼──────────────┼─────────────────────────────────┤
+│ Storage        │ 0.0.0.0:9199 │ http://127.0.0.1:4000/storage   │
+└────────────────┴──────────────┴─────────────────────────────────┘
+  Emulator Hub host: 127.0.0.1 port: 4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2025-09-03T06:29:21.379Z] Received signal SIGHUP 1
+[info]  
+[info] i  emulators: Received SIGHUP for the first time. Starting a clean shutdown. 
+[info] i  emulators: Please wait for a clean shutdown or send the SIGHUP signal again to stop right now. 
+[info] i  Automatically exporting data using --export-on-exit "./emulator-data" please wait for the export to finish... 
+[debug] [2025-09-03T06:29:21.383Z] >>> [apiv2][query] GET http://127.0.0.1:4400/ [none]
+[debug] [2025-09-03T06:29:21.393Z] <<< [apiv2][status] GET http://127.0.0.1:4400/ 200
+[debug] [2025-09-03T06:29:21.393Z] <<< [apiv2][body] GET http://127.0.0.1:4400/ {"version":"14.15.1","origins":["http://127.0.0.1:4400","http://[::1]:4400"],"host":"127.0.0.1","port":4400}
+[info] i  Found running emulator hub for project nfc-blogsite at http://127.0.0.1:4400 
+[info] i  Creating export directory C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\Desktop\GITHUB\nfc-blogsite\src\app\emulator-data 
+[info] i  Exporting data to: C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\Desktop\GITHUB\nfc-blogsite\src\app\emulator-data 
+[debug] [2025-09-03T06:29:21.395Z] >>> [apiv2][query] GET http://127.0.0.1:4400/ [none]
+[debug] [2025-09-03T06:29:21.398Z] <<< [apiv2][status] GET http://127.0.0.1:4400/ 200
+[debug] [2025-09-03T06:29:21.398Z] <<< [apiv2][body] GET http://127.0.0.1:4400/ {"version":"14.15.1","origins":["http://127.0.0.1:4400","http://[::1]:4400"],"host":"127.0.0.1","port":4400}
+[debug] [2025-09-03T06:29:21.398Z] >>> [apiv2][query] POST http://127.0.0.1:4400/_admin/export [none]
+[debug] [2025-09-03T06:29:21.398Z] >>> [apiv2][body] POST http://127.0.0.1:4400/_admin/export {"path":"C:\\Users\\EXTOR_ZYON.DESKTOP-4106NAL\\Desktop\\GITHUB\\nfc-blogsite\\src\\app\\emulator-data","initiatedBy":"exit"}
+[info] i  emulators: Received export request. Exporting data to C:\Users\EXTOR_ZYON.DESKTOP-4106NAL\Desktop\GITHUB\nfc-blogsite\src\app\emulator-data. 
+[debug] [2025-09-03T06:29:21.418Z] >>> [apiv2][query] POST http://127.0.0.1:9090/emulator/v1/projects/nfc-blogsite:export [none]
+[debug] [2025-09-03T06:29:21.419Z] >>> [apiv2][body] POST http://127.0.0.1:9090/emulator/v1/projects/nfc-blogsite:export {"database":"projects/nfc-blogsite/databases/(default)","export_directory":"firebase-export-1756880961415GIQwV2","export_name":"firestore_export"}
+[debug] [2025-09-03T06:29:21.426Z] Sep 03, 2025 2:29:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 03, 2025 2:29:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}

@@ -1,75 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Sun, Moon } from "lucide-react";
-
-const THEME_KEY = "site-theme";
+import * as React from "react"
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
-
-  // Set mounted to true after hydration
-  useEffect(() => {
-    setMounted(true);
-    
-    // Initialize theme after mount
-    try {
-      const stored = localStorage.getItem(THEME_KEY);
-      if (stored === "dark" || stored === "light") {
-        setTheme(stored);
-        return;
-      }
-    } catch {
-      /* ignore */
-    }
-    
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    
-    try {
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem(THEME_KEY, "dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem(THEME_KEY, "light");
-      }
-    } catch {
-      /* ignore */
-    }
-  }, [theme, mounted]);
-
-  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
-
-  // Don't render until after hydration to prevent mismatch
-  if (!mounted) {
-    return (
-      <div className="inline-flex items-center justify-center rounded-md p-2 w-9 h-9">
-        {/* Empty placeholder with same dimensions */}
-      </div>
-    );
-  }
+  const { setTheme, theme } = useTheme()
 
   return (
-    <button
-      type="button"
-      aria-label="Toggle color theme"
-      onClick={toggle}
-      className="inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      className="w-9 h-9 p-0"
     >
-      {theme === "dark" ? (
-        <Sun className="w-5 h-5 text-yellow-400" />
-      ) : (
-        <Moon className="w-5 h-5 text-gray-700" />
-      )}
-    </button>
-  );
+      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
+  )
 }

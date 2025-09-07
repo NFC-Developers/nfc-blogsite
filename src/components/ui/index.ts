@@ -14,5 +14,6 @@ export * from "./switch";
 export * from "./table";
 export * from "./tabs";
 export { ThemeToggle } from "./theme-toggle";
+export { ThemeProvider } from "../providers/theme-provider";
 
 // Add more exports here if new UI primitives are added
