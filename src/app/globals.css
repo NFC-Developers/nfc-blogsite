@@ -190,3 +190,50 @@
   height: 0;
   pointer-events: none;
 }
+
+/* Responsive tweaks for auth forms and small screens */
+@media (max-width: 640px) {
+  /* Make auth form occupy most of the viewport width and reduce visual chrome */
+  .auth-card,
+  .auth-card .rounded-2xl,
+  .auth-card .shadow-sm {
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: none;
+    background: transparent;
+    border: 0;
+  }
+
+  /* Increase touch target sizes */
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  button {
+    font-size: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  /* Center header and reduce margins */
+  .auth-card .relative.mb-8 {
+    margin-bottom: 1rem;
+  }
+
+  /* Touch target helper class */
+  .touch-target {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  /* Reduce header chrome on small screens */
+  header.w-full.bg-background.border-b.border-border.shadow-sm {
+    box-shadow: none;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+}

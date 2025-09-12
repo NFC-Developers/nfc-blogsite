@@ -77,10 +77,10 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile search button */}
+        {/* Mobile search button - larger hit area on phones */}
         <div className="sm:hidden">
           <Link href="/search">
-            <button aria-label="Open search" className="p-2 text-muted-foreground">
+            <button aria-label="Open search" className="p-3 text-muted-foreground touch-target">
               <Search size={18} />
             </button>
           </Link>
@@ -139,14 +139,14 @@ export default function Navbar() {
             </DropdownMenu>
           ) : (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/login" className="flex items-center gap-1">
+              <Button variant="ghost" size="sm" asChild className="touch-target">
+                <Link href="/login" className="flex items-center gap-1 px-3 py-2 sm:px-2 sm:py-1">
                   <LogIn size={16} />
                   <span className="hidden sm:inline">Sign In</span>
                 </Link>
               </Button>
-              <Button size="sm" asChild>
-                <Link href="/register" className="flex items-center gap-1">
+              <Button size="sm" asChild className="touch-target">
+                <Link href="/register" className="flex items-center gap-1 px-3 py-2 sm:px-2 sm:py-1">
                   <UserPlus size={16} />
                   <span className="hidden sm:inline">Sign Up</span>
                 </Link>

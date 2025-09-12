@@ -25,7 +25,7 @@ export function AuthForm({ mode }: AuthFormProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-red-50 dark:from-gray-900 dark:via-slate-900 dark:to-pink-950 flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-lg">
         {/* Header */}
         <div className="relative mb-8">
           <div className="text-center">
@@ -47,7 +47,9 @@ export function AuthForm({ mode }: AuthFormProps) {
         </div>
 
         {/* Form Container */}
-        <div className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl p-8">
+    {/* Make the card transparent to avoid visual conflict with the page background.
+      Keep a subtle border and reduced shadow for separation, and increase width. */}
+  <div className="auth-card bg-transparent border border-gray-800/20 dark:border-white/10 rounded-2xl shadow-sm p-8">
           <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
             {/* Email Field */}
             <div>
